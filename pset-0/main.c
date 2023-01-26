@@ -12,11 +12,8 @@ int main(int argc, char *argv[])
     else
     {
         printf("What is your name? ");
-        while (scanf("%[^\n]s", name) > 0)
-        {
-            printf("Hello, %s\n", name);
-            return 0;
-        }
+        scanf("%[^\n]s", name);
+        printf("Hello, %s\n", name);
     }
     return 0;
 }
