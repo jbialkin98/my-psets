@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    char name[128];
+    char name[129];
     
     if (argc == 2)
     {
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     else
     {
         printf("What is your name? ");
-        while (scanf("%s", name) > 0)
+        while (scanf("%[^\n]s", name) > 0)
         {
             printf("Hello, %s\n", name);
             return 0;
