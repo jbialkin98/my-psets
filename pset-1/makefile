@@ -3,7 +3,7 @@ CFLAGS = -std=c17 -Wall -pedantic -g
 
 .PHONY: clean
 
-Life: main.o life.o life.h
+Life: main.o life.o
 	${CC} ${CFLAGS}	-o $@ $^
 
 clean:
