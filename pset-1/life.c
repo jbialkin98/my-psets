@@ -3,7 +3,6 @@
 #include "life.h"
 
 bool isAlive(int array[], size_t index, size_t size) {
-    printf("%i", array[index]);
     if (array[index] == 1) {
         return true;
     } else {
@@ -12,27 +11,23 @@ bool isAlive(int array[], size_t index, size_t size) {
 }
 
 bool shouldDie(int array[], size_t index, size_t size) {
-    // if (index == 0) {
-    //     if (array[index + 1] == 1) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // } else if (index == size - 1) {
-    //     if (array[index - 1] == 1) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-
-    if (array[index - 1] == 1 && array[index + 1] == 1) {
+    if (index == 0 || index == size - 1) {
+        return false;
+    } else if (array[index - 1] == 1 && array[index + 1] == 1) {
         return true;
     } else {
         return false;
     }
 }
+
+// void advanceTime(arr[], n) {
+    // if it should die, set to 0
+    // else, next[i] = array[i]
+
+    //if the right neighbor is in bounds and the right neighbor is 0 and current number is 1
+    // set the right neighbor to 1
+    // do the same for the left neighbor
+// }
 
 
 // return true;
