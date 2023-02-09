@@ -23,18 +23,24 @@ int inputChecks(int argc, char* argv[]) {
         }
     }
 
-    // input_length = strlen(argv[3]);
-    // for (int i = 0; i < input_length; i++) {
-    //     if (isdigit(argv[3][i]) != 0) {
-    //         return 1;
-    //     }
-    //     if (argv[3][i] - '0' != 0 || argv[3][i] - '0' != 1) {
-    //         return 1;
-    //     }
-    // }
-
+    input_length = strlen(argv[3]);
+    for (int i = 0; i < input_length; i++) {
+        char c = argv[3][i];
+        if (c != '0' && c != '1'){
+            return 1;
+        }
+    }
     return 0;
 }
+
+int numberChecks(int time_steps, int game_size) {
+    if (time_steps < 0 || game_size <= 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 
 bool isAlive(int array[], size_t index, size_t size) {
     if (array[index] == 1) {
@@ -80,29 +86,43 @@ void advanceTime(int game_array[], int next_array[], size_t game_size, int step_
             // if it should die, set it to 0
                 next_array[i] = 0;
             } else {
-                // if it shouldn't, keep it the same
+                // if it shouldn't die, keep it the same
                 next_array[i] = game_array[i];
-             }
+            }
         } else {
-            // if cell is not alive, keep it the same in next_array
-            next_array[i] = game_array[i];
+            // if the cell is dead, check its neighbors
+            if (i + 1 < game_size && game_array[i+1] == 1) {
+                // if the right neighbor is in bounds and equal to 0, bring it to life
+                next_array[i] = 1;
+            } else if (i - 1 >= 0 && game_array[i-1] == 1) {
+                // if the left neighbor is in bounds and equal to 0, bring it to life
+                next_array[i] = 1;
+            } else {
+                // if neither neighbor is one, keep it as 0
+                next_array[i] = 0;
+            }
         }
-        // if the right neighbor is in bounds and equal to 0, bring it to life
-        if (i + 1 < game_size && game_array[i+1] == 0 && game_array[i] == 1) {
-            next_array[i+1] = 1;
-        }
-        // if the left neighbor is in bounds and equal to 0, bring it to life
-        if (i - 1 >= 0 && game_array[i-1] == 0 && game_array[i] == 1) {
-            next_array[i-1] = 1;
-        }
+            // brings dead cell to life if the cell to the left is alive
+            
+        //     // if cell is not alive, keep it the same in next_array
+        //     next_array[i] = game_array[i];
+        // }
+        // // if the right neighbor is in bounds and equal to 0, bring it to life
+        // if (i + 1 < game_size && game_array[i+1] == 0 && game_array[i] == 1) {
+        //     next_array[i+1] = 1;
+        // }
+        // // if the left neighbor is in bounds and equal to 0, bring it to life
+        // if (i - 1 >= 0 && game_array[i-1] == 0 && game_array[i] == 1) {
+        //     next_array[i-1] = 1;
+        // }
         // allows the last cell to become 1 if the cell next to it is alive
-        if (i == game_size-1 && game_array[i-1] == 1) {
-            next_array[i] = 1;
-        }
-        // brings dead cell to life if the cell to the left is alive
-        if (i - 1 >= 0 && game_array[i] == 0 && game_array[i-1] == 1) {
-            next_array[i] = 1;
-        }
+        // if (i == game_size-1 && game_array[i-1] == 1) {
+        //     next_array[i] = 1;
+        // }
+        // // brings dead cell to life if the cell to the left is alive
+        // if (i - 1 >= 0 && game_array[i] == 0 && game_array[i-1] == 1) {
+        //     next_array[i] = 1;
+        // }
     }
     printArray(next_array, game_size, step_number);
     for (int i = 0; i < game_size; i++) {

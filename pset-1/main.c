@@ -11,7 +11,15 @@ int main(int argc, char* argv[]) {
     int step_number = 0;
     int game_size = atoi(argv[2]);
     char* start = argv[3];
+
+    if (numberChecks(time_steps, game_size) == 1) {
+        return 1;
+    }
+
+
     int game_array[game_size];
+
+
 
     // Create array of ints from start input
     for (int i = 0; i < game_size; i++) {
