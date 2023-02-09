@@ -3,6 +3,10 @@
 #include "life.h"
 
 int main(int argc, char* argv[]) {
+    if (inputChecks(argc, argv) == 1) {
+        return 1;
+    }
+
     int time_steps = atoi(argv[1]);
     int step_number = 0;
     int game_size = atoi(argv[2]);

@@ -1,7 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "life.h"
+
+int inputChecks(int argc, char* argv[]) {
+    if (argc < 4) {
+        return 1;
+    }
+
+    int input_length = strlen(argv[1]);
+    for (int i = 0; i < input_length; i++) {
+        if (isdigit(argv[1][i]) == 0) {
+            return 1;
+        }
+    }
+
+    input_length = strlen(argv[2]);
+    for (int i = 0; i < input_length; i++) {
+        if (isdigit(argv[2][i]) == 0) {
+            return 1;
+        }
+    }
+
+    // input_length = strlen(argv[3]);
+    // for (int i = 0; i < input_length; i++) {
+    //     if (isdigit(argv[3][i]) != 0) {
+    //         return 1;
+    //     }
+    //     if (argv[3][i] - '0' != 0 || argv[3][i] - '0' != 1) {
+    //         return 1;
+    //     }
+    // }
+
+    return 0;
+}
 
 bool isAlive(int array[], size_t index, size_t size) {
     if (array[index] == 1) {

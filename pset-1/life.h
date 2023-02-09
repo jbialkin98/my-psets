@@ -5,6 +5,7 @@
 #ifndef __LIFE_H__
 #define __LIFE_H__
 
+int inputChecks(int argc, char* argv[]);
 bool isAlive(int array[], size_t index, size_t size);
 bool shouldDie(int array[], size_t index, size_t size);
 void printArray(int array[], size_t size, int step_number);
