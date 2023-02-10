@@ -68,13 +68,28 @@ bool shouldDie(int array[], size_t index, size_t size) {
     }
 }
 
-void printArray(int array[], size_t size, int step_number) {
+void printArray(int array[], size_t size, size_t step_number) {
     // the first time the array is printed
     if (step_number == 0) {
-        printf("Initial values                  ");
+        printf("Initial values                   ");
     } else {
         // every other time the array is printed
-        printf("Values after timestep %i         ", step_number);
+        // spaces different for each if statement to ensure it prints beginning on column 34
+        if (step_number < 10) {
+            printf("Values after timestep %li          ", step_number);
+        } else if (step_number < 100) {
+            printf("Values after timestep %li         ", step_number);
+        } else if (step_number < 1000) {
+            printf("Values after timestep %li        ", step_number);
+        } else if (step_number < 10000) {
+            printf("Values after timestep %li       ", step_number);
+        } else if (step_number < 100000) {
+            printf("Values after timestep %li      ", step_number);
+        } else if (step_number < 1000000) {
+            printf("Values after timestep %li     ", step_number);
+        } else if (step_number < 10000000) {
+            printf("Values after timestep %li    ", step_number);
+        }
     }
     for (int i = 0; i < size; i++) {                
         if (i == 0) {
@@ -90,7 +105,7 @@ void printArray(int array[], size_t size, int step_number) {
     }
 }
 
-void advanceTime(int game_array[], int next_array[], size_t game_size, int step_number) {
+void advanceTime(int game_array[], int next_array[], size_t game_size, size_t step_number) {
     for (int i = 0; i < game_size; i++) {
         if (isAlive(game_array, i, game_size) == true) {
             // if it's alive, check if it should die

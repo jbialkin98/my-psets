@@ -9,7 +9,7 @@ int inputChecks(int argc, char* argv[]);
 int numberChecks(int time_steps, int game_size, char* initial_values_input);
 bool isAlive(int array[], size_t index, size_t size);
 bool shouldDie(int array[], size_t index, size_t size);
-void printArray(int array[], size_t size, int step_number);
-void advanceTime(int game_array[], int next_array[], size_t game_size, int step_number);
+void printArray(int array[], size_t size, size_t step_number);
+void advanceTime(int game_array[], int next_array[], size_t game_size, size_t step_number);
 
 #endif
