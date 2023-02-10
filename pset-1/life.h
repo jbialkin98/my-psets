@@ -6,7 +6,7 @@
 #define __LIFE_H__
 
 int inputChecks(int argc, char* argv[]);
-int numberChecks(int time_steps, int game_size);
+int numberChecks(int time_steps, int game_size, char* initial_values_input);
 bool isAlive(int array[], size_t index, size_t size);
 bool shouldDie(int array[], size_t index, size_t size);
 void printArray(int array[], size_t size, int step_number);

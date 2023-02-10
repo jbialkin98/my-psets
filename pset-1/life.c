@@ -5,10 +5,11 @@
 #include "life.h"
 
 int inputChecks(int argc, char* argv[]) {
+    // if there aren't enough inputs in the command line
     if (argc < 4) {
         return 1;
     }
-
+    // if there is a letter input where it should only contain numbers
     int input_length = strlen(argv[1]);
     for (int i = 0; i < input_length; i++) {
         if (isdigit(argv[1][i]) == 0) {
@@ -22,7 +23,7 @@ int inputChecks(int argc, char* argv[]) {
             return 1;
         }
     }
-
+    // if initial values input contains anything other than a 0 or 1
     input_length = strlen(argv[3]);
     for (int i = 0; i < input_length; i++) {
         char c = argv[3][i];
@@ -33,8 +34,13 @@ int inputChecks(int argc, char* argv[]) {
     return 0;
 }
 
-int numberChecks(int time_steps, int game_size) {
+int numberChecks(int time_steps, int game_size, char* initial_values_input) {
+    // if the number of times to loop the game is 0 or negative
+    // or if the size of the array is 0 or less
     if (time_steps < 0 || game_size <= 0) {
+        return 1;
+    } else if (game_size > strlen(initial_values_input)) {
+        // if the listed size of the array is greater than the actual size of the array
         return 1;
     } else {
         return 0;
@@ -51,9 +57,11 @@ bool isAlive(int array[], size_t index, size_t size) {
 }
 
 bool shouldDie(int array[], size_t index, size_t size) {
+    // First and last elememnts can't die
     if (index == 0 || index == size - 1) {
         return false;
     } else if (array[index - 1] == 1 && array[index + 1] == 1) {
+        // if the left and right neighbors are alive, the cell should die
         return true;
     } else {
         return false;
@@ -61,16 +69,20 @@ bool shouldDie(int array[], size_t index, size_t size) {
 }
 
 void printArray(int array[], size_t size, int step_number) {
+    // the first time the array is printed
     if (step_number == 0) {
         printf("Initial values                  ");
     } else {
+        // every other time the array is printed
         printf("Values after timestep %i         ", step_number);
     }
     for (int i = 0; i < size; i++) {                
         if (i == 0) {
+            // before the first number of the array is printed
             printf("[");
         }
         if (i == size - 1) {
+            // the last number of the array printed with the closing bracket
             printf("%i]\n", array[i]);
             break;
         }
@@ -125,6 +137,7 @@ void advanceTime(int game_array[], int next_array[], size_t game_size, int step_
         // }
     }
     printArray(next_array, game_size, step_number);
+    // make the next iteration of game_array the updated next_array
     for (int i = 0; i < game_size; i++) {
         game_array[i] = next_array[i];
     }
