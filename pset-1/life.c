@@ -27,7 +27,7 @@ int inputChecks(int argc, char* argv[]) {
     input_length = strlen(argv[3]);
     for (int i = 0; i < input_length; i++) {
         char c = argv[3][i];
-        if (c != '0' && c != '1'){
+        if ((c != '0') && (c != '1')){
             return 1;
         }
     }
@@ -37,10 +37,11 @@ int inputChecks(int argc, char* argv[]) {
 int numberChecks(int time_steps, int game_size, char* initial_values_input) {
     // if the number of times to loop the game is 0 or negative
     // or if the size of the array is 0 or less
-    if (time_steps < 0 || game_size <= 0) {
+    if ((time_steps < 0) || (game_size <= 0)) {
         return 1;
     } else if (game_size > strlen(initial_values_input)) {
-        // if the listed size of the array is greater than the actual size of the array
+        // if the listed size of the array is greater than the 
+        // actual size of the array
         return 1;
     } else {
         return 0;
@@ -58,9 +59,9 @@ bool isAlive(int array[], size_t index, size_t size) {
 
 bool shouldDie(int array[], size_t index, size_t size) {
     // First and last elememnts can't die
-    if (index == 0 || index == size - 1) {
+    if ((index == 0) || (index == size - 1)) {
         return false;
-    } else if (array[index - 1] == 1 && array[index + 1] == 1) {
+    } else if ((array[index - 1] == 1) && (array[index + 1] == 1)) {
         // if the left and right neighbors are alive, the cell should die
         return true;
     } else {
@@ -74,22 +75,7 @@ void printArray(int array[], size_t size, size_t step_number) {
         printf("Initial values                   ");
     } else {
         // every other time the array is printed
-        // spaces different for each if statement to ensure it prints beginning on column 34
-        if (step_number < 10) {
-            printf("Values after timestep %li          ", step_number);
-        } else if (step_number < 100) {
-            printf("Values after timestep %li         ", step_number);
-        } else if (step_number < 1000) {
-            printf("Values after timestep %li        ", step_number);
-        } else if (step_number < 10000) {
-            printf("Values after timestep %li       ", step_number);
-        } else if (step_number < 100000) {
-            printf("Values after timestep %li      ", step_number);
-        } else if (step_number < 1000000) {
-            printf("Values after timestep %li     ", step_number);
-        } else if (step_number < 10000000) {
-            printf("Values after timestep %li    ", step_number);
-        }
+        printf("Values after timestep %-11li", step_number);
     }
     for (int i = 0; i < size; i++) {                
         if (i == 0) {
@@ -105,34 +91,35 @@ void printArray(int array[], size_t size, size_t step_number) {
     }
 }
 
-void advanceTime(int game_array[], int next_array[], size_t game_size, size_t step_number) {
-    for (int i = 0; i < game_size; i++) {
-        if (isAlive(game_array, i, game_size) == true) {
-            // if it's alive, check if it should die
-            if (shouldDie(game_array, i, game_size) == true) {
-            // if it should die, set it to 0
-                next_array[i] = 0;
+void advanceTime(int game_array[], int next_array[], 
+    size_t game_size, size_t step_number) {
+        for (int i = 0; i < game_size; i++) {
+            if (isAlive(game_array, i, game_size) == true) {
+                // if it's alive, check if it should die
+                if (shouldDie(game_array, i, game_size) == true) {
+                // if it should die, set it to 0
+                    next_array[i] = 0;
+                } else {
+                    // if it shouldn't die, keep it the same
+                    next_array[i] = game_array[i];
+                }
             } else {
-                // if it shouldn't die, keep it the same
-                next_array[i] = game_array[i];
-            }
-        } else {
-            // if the cell is dead, check its neighbors
-            if (i + 1 < game_size && game_array[i+1] == 1) {
-                // if the right neighbor is in bounds and equal to 0, bring it to life
-                next_array[i] = 1;
-            } else if (i - 1 >= 0 && game_array[i-1] == 1) {
-                // if the left neighbor is in bounds and equal to 0, bring it to life
-                next_array[i] = 1;
-            } else {
-                // if neither neighbor is 1, keep it as 0
-                next_array[i] = 0;
+                // if the cell is dead, check its neighbors
+                if (i + 1 < game_size && game_array[i+1] == 1) {
+                    // if the right neighbor is in bounds and equal to 0, bring it to life
+                    next_array[i] = 1;
+                } else if ((i - 1 >= 0) && (game_array[i-1] == 1)) {
+                    // if the left neighbor is in bounds and equal to 0, bring it to life
+                    next_array[i] = 1;
+                } else {
+                    // if neither neighbor is 1, keep it as 0
+                    next_array[i] = 0;
+                }
             }
         }
-    }
-    printArray(next_array, game_size, step_number);
-    // make the next iteration of game_array the updated next_array
-    for (int i = 0; i < game_size; i++) {
-        game_array[i] = next_array[i];
-    }
+        printArray(next_array, game_size, step_number);
+        // make the next iteration of game_array the updated next_array
+        for (int i = 0; i < game_size; i++) {
+            game_array[i] = next_array[i];
+        }
 }

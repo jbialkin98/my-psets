@@ -12,8 +12,9 @@ jsb245
 | 2/07 |      10:30pm |       1:30 | Added functions to life.c |
 | 2/08 |      10:00pm |       2:00 | Got program working, began working on input checks and failsafes |
 | 2/09 |       6:00pm |       1:30 | Finished failsafes, fixed bugs, tested code. Added more comments and made code more readable |
+| 2/10 |       3:00pm |       1:00 | Fixed problem where the array wasn't printing on line 34 |
 
-Total time: 6:20
+Total time: 7:20
 
 # Collaboration
 N/A
