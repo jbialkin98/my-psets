@@ -110,31 +110,10 @@ void advanceTime(int game_array[], int next_array[], size_t game_size, int step_
                 // if the left neighbor is in bounds and equal to 0, bring it to life
                 next_array[i] = 1;
             } else {
-                // if neither neighbor is one, keep it as 0
+                // if neither neighbor is 1, keep it as 0
                 next_array[i] = 0;
             }
         }
-            // brings dead cell to life if the cell to the left is alive
-            
-        //     // if cell is not alive, keep it the same in next_array
-        //     next_array[i] = game_array[i];
-        // }
-        // // if the right neighbor is in bounds and equal to 0, bring it to life
-        // if (i + 1 < game_size && game_array[i+1] == 0 && game_array[i] == 1) {
-        //     next_array[i+1] = 1;
-        // }
-        // // if the left neighbor is in bounds and equal to 0, bring it to life
-        // if (i - 1 >= 0 && game_array[i-1] == 0 && game_array[i] == 1) {
-        //     next_array[i-1] = 1;
-        // }
-        // allows the last cell to become 1 if the cell next to it is alive
-        // if (i == game_size-1 && game_array[i-1] == 1) {
-        //     next_array[i] = 1;
-        // }
-        // // brings dead cell to life if the cell to the left is alive
-        // if (i - 1 >= 0 && game_array[i] == 0 && game_array[i-1] == 1) {
-        //     next_array[i] = 1;
-        // }
     }
     printArray(next_array, game_size, step_number);
     // make the next iteration of game_array the updated next_array
