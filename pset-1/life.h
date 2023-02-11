@@ -1,3 +1,11 @@
+/*
+* life.h
+* Josh Bialkin
+* CPSC 223 pset-2
+* 2/11/23
+* Header file, declaring all functions used in main.c and life.c.
+*/
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>

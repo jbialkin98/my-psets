@@ -1,3 +1,14 @@
+/*
+* main.c
+* Josh Bialkin
+* CPSC 223 pset-2
+* 2/11/23
+* Accepts command line arguments and checks them with functions in life.c,
+  Then plays the game with functions in life.c. Returns 0 if there 
+  are no errors at the end, and 1, stopping the program, if there is
+  a problem.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "life.h"

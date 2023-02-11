@@ -13,8 +13,9 @@ jsb245
 | 2/08 |      10:00pm |       2:00 | Got program working, began working on input checks and failsafes |
 | 2/09 |       6:00pm |       1:30 | Finished failsafes, fixed bugs, tested code. Added more comments and made code more readable |
 | 2/10 |       3:00pm |       1:00 | Fixed problem where the array wasn't printing on line 34 |
+| 2/11 |       3:30pm |       0:45 | Fixed style to adhere to style guide |
 
-Total time: 7:20
+Total time: 8:05
 
 # Collaboration
 N/A
