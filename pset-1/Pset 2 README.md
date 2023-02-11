@@ -108,7 +108,7 @@ The name of the target must be "`Life`".
 Those requirements are reproduced at the end of this document.
 
 ## Output format
-The first line of ouptut must have the string "Initial values:" followed by a comma-separated list of the initial cell values enclosed in `'['` and `']'`, beginning on column 34.
+The first line of ouptut must have the string "Initial values:" followed by a c omma-separated list of the initial cell values enclosed in `'['` and `']'`, beginning on column 34.
 Thereafter, each line of output must have the string "Values at timestep N" (for some N, starting at 1 and increasing by 1 per line) followed by a comma-separated list of the cell values at that timestep enclosed in `'['` and `']'`, beginning on column 34.
 
 ## Assumptions You May Make
