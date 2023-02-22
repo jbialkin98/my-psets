@@ -4,3 +4,5 @@
 
 2/21, 8pm, 1 hr, finished basic implementation of functions in pirate_list.c and started hookbook.c. Have errors in pirate_list currently.
 2/21, 9:45pm, 30 minutes, Went to OH to fix some issues. Changed collection_of_pirates in my implementation struct to type **, which fixed most errors.
+
+2/22, 12:20pm, 20 minutes, started to fix sorting algorithm, switched to using fgets in hookbook
