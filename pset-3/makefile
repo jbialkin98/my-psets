@@ -1,5 +1,8 @@
 CC = gcc
 CFLAGS = -std=c17 -Wall -Werror -pedantic -g
 
-HookBook :
-    # TODO: You must complete the rule for HookBook
+HookBook : hookbook.o pirate_list.o
+    ${CC} ${CFLAGS} -o $@ $^
+
+clean : 
+	rm -rf *.{o,a}
