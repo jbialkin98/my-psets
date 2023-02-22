@@ -9,14 +9,14 @@
 #define RESIZE_FACTOR 2
 
 typedef struct implementation {
-    pirate *collection_of_pirates;
+    pirate **collection_of_pirates;
     int length;
     int capacity;
 } pirate_list;
 
 pirate_list *list_create() {
     pirate_list *lst = malloc(sizeof(pirate_list));
-    lst->collection_of_pirates = malloc(INITIAL_CAPACITY * sizeof(pirate));
+    lst->collection_of_pirates = malloc(INITIAL_CAPACITY * sizeof(pirate*));
     lst->length = 0;
     lst->capacity = INITIAL_CAPACITY;
     return lst;
@@ -25,12 +25,12 @@ pirate_list *list_create() {
 size_t list_index_of(pirate_list *pirates, pirate *p) {
     for (int i = 0; i < pirates->length; i++) {
         char *name_1 = p->name;
-        char *name_2 = pirates->collection_of_pirates->name[i];
-        // char *name_2 = pirates->collection_of_pirates[i]->name;
+        char *name_2 = pirates->collection_of_pirates[i]->name;
         if (strcmp(name_1, name_2) == 0) {
             return i;
         }
     }
+    // Check spec
     return 0;
 }
 
@@ -52,7 +52,7 @@ pirate* list_remove(pirate_list* pirates, pirate* p) {
         return NULL;
     } else {
         // remove p from list
-        pirate pirate_to_remove = pirates->collection_of_pirates[pirate_index];
+        pirate *pirate_to_remove = pirates->collection_of_pirates[pirate_index];
         for (int i = pirate_index; i < pirates->length; i++) {
             pirates->collection_of_pirates[i - 1] = pirates->collection_of_pirates[i];
         }
