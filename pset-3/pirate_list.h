@@ -8,6 +8,8 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
+void print_list(pirate_list* pirates);
+
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.
  */
