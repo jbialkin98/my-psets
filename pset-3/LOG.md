@@ -11,3 +11,4 @@
 2/23, 6:30pm, 2 hours, fixed sorting algorithm and recognized spacing bugs
 
 2/24, 10:30am, 20 minutes, fixed spacing bugs and fixed duplicates inserted in list
+2/24, 12:15, 20 minutes, fixed insert function bug so it should now allow for elements placed at any index. Changed to strcasecmp to allow for comparisons with uppercase and lowercase letters

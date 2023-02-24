@@ -10,8 +10,8 @@
 
 typedef struct implementation {
     pirate **collection_of_pirates;
-    int length;
-    int capacity;
+    size_t length;
+    size_t capacity;
 } pirate_list;
 
 pirate* create_pirate(char name[65]){
@@ -25,7 +25,7 @@ void list_expand_if_necessary(pirate_list* pirates) {
     if (pirates->length >= pirates->capacity) {
         pirates->capacity *= RESIZE_FACTOR;
         pirates->collection_of_pirates = realloc(pirates->collection_of_pirates, pirates->capacity * sizeof(pirate*));
-        fprintf(stderr, "Expand to %d\n", pirates->capacity);
+        fprintf(stderr, "Expand to %zu\n", pirates->capacity);
     }
 }
 
@@ -33,7 +33,7 @@ void list_contract_if_necessary(pirate_list* pirates) {
     if (pirates->length < pirates->capacity / RESIZE_FACTOR) {
         pirates->capacity /= RESIZE_FACTOR;
         pirates->collection_of_pirates = realloc(pirates->collection_of_pirates, pirates->capacity * sizeof(pirate*));
-        fprintf(stderr, "Contract to %d\n", pirates->capacity);
+        fprintf(stderr, "Contract to %zu\n", pirates->capacity);
     }
 }
 
@@ -62,11 +62,15 @@ pirate *list_insert(pirate_list *pirates, pirate *p, size_t idx) {
     // if the pirate is not already in the list
     if (list_index_of(pirates, p) == pirates->length) {
         list_expand_if_necessary(pirates);
-        // move every pirate from the idx on one to the right
-        // for (int j = pirates->length - 1; j >= idx; --j) {
-        //     printf("j = %i\n", j);
-        //     pirates->collection_of_pirates[j + 1] = pirates->collection_of_pirates[j];
-        // }
+
+        // if the idx is not the last element in the array, move every pirate from the idx on one to the right
+        size_t length = pirates->length;
+        if (length > 0 && idx < length - 1) {
+            for (int j = pirates->length - 1; j >= idx; --j) {
+            // printf("j = %i\n", j);
+            pirates->collection_of_pirates[j + 1] = pirates->collection_of_pirates[j];
+            }  
+        }
 
         // add the pirate to the index
         pirates->collection_of_pirates[idx] = p;
@@ -118,7 +122,7 @@ void list_sort(pirate_list* pirates) {
         char *previous_name = pirates->collection_of_pirates[j - 1]->name;
         char *current_name = pirates->collection_of_pirates[j]->name;
         // while they are in the wrong order, swap them
-        while((j >= 1) && (strcmp(previous_name, current_name)) > 0) {
+        while((j >= 1) && (strcasecmp(previous_name, current_name)) > 0) {
             char *temp_name = previous_name;
 
             pirates->collection_of_pirates[j - 1]->name = current_name;
@@ -131,8 +135,8 @@ void list_sort(pirate_list* pirates) {
             previous_name = pirates->collection_of_pirates[j - 1]->name;
             current_name = pirates->collection_of_pirates[j]->name;
         }
-        printf("Sorted List time %d:\n", i);
-        print_list(pirates);
+        // printf("Sorted List time %d:\n", i);
+        // print_list(pirates);
     }
     printf("Sorted List:\n");
     print_list(pirates);
