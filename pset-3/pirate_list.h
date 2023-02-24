@@ -8,6 +8,8 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
+pirate* create_pirate(char name[65]);
+
 void print_list(pirate_list* pirates);
 
 /*

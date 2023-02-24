@@ -14,19 +14,12 @@ typedef struct implementation {
     int capacity;
 } pirate_list;
 
-// pirate* create_pirate(char* name){
-//     pirate *new_pirate = malloc(sizeof(pirate));
-//     strcpy(new_pirate->name, name);
-//     return new_pirate;
-// }
-
-/*TO DELETE!*/
-// pirate* copy_pirate(pirate* p){
-//     pirate* copy = malloc(sizeof(pirate));
-//     copy->name = malloc(65*sizeof(char));
-//     strcpy(copy->name, p->name);
-//     return copy;
-// }
+pirate* create_pirate(char name[65]){
+    pirate* new_pirate = malloc(sizeof(pirate));
+    new_pirate->name = malloc(65*sizeof(char));
+    strcpy(new_pirate->name, name);
+    return new_pirate;
+}
 
 void list_expand_if_necessary(pirate_list* pirates) {
     if (pirates->length >= pirates->capacity) {
@@ -66,21 +59,11 @@ size_t list_index_of(pirate_list *pirates, pirate *p) {
 }
 
 pirate *list_insert(pirate_list *pirates, pirate *p, size_t idx) {
-    
-
-    /*TO DELETE?*/
-    // printf("%d", list_index_of(pirates, p));
-    // printf("curlength %d\n", pirates->length);
-    // printf("Pirate name for input to loop%s\n", p->name);
-    // if(idx != 0) {
-    //     printf("Hopefully not will: %s\n", pirates->collection_of_pirates[0]->name);
-    // }
-
     // if the pirate is not already in the list
     if (list_index_of(pirates, p) == pirates->length) {
         list_expand_if_necessary(pirates);
         // move every pirate from the idx on one to the right
-        // for (int j = pirates->length - 1; j > idx; j--) {
+        // for (int j = pirates->length - 1; j > idx; --j) {
         //     printf("j = %i\n", j);
         //     pirates->collection_of_pirates[j + 1] = pirates->collection_of_pirates[j];
         // }
@@ -121,7 +104,6 @@ pirate* list_access(pirate_list* pirates, size_t idx) {
 }
 
 void print_list(pirate_list* pirates) {
-    printf("Initial Pirate List: \n");
     for (int i = 0; i < pirates->length; i++) {
         printf("%s", pirates->collection_of_pirates[i]->name);
     }
@@ -129,61 +111,31 @@ void print_list(pirate_list* pirates) {
 }
 
 void list_sort(pirate_list* pirates) {
-    for (int i = 0; i < (pirates->length - 1); i++) {
-        char *current_name = pirates->collection_of_pirates[i]->name;
-        char *next_name = pirates->collection_of_pirates[i + 1]->name;
-
+    printf("Second List:\n");
+    print_list(pirates);
+    for (int i = 1; i < pirates->length; i++) {
         int j = i;
+        char *previous_name = pirates->collection_of_pirates[j - 1]->name;
+        char *current_name = pirates->collection_of_pirates[j]->name;
         // while they are in the wrong order, swap them
-        while(strcmp(current_name, next_name) > 0) {
+        while((j >= 1) && (strcmp(previous_name, current_name)) > 0) {
+            char *temp_name = previous_name;
+
+            pirates->collection_of_pirates[j - 1]->name = current_name;
+            pirates->collection_of_pirates[j]->name = temp_name;
+
+            if (j > 1) {
+                --j;    
+            }
+
+            previous_name = pirates->collection_of_pirates[j - 1]->name;
             current_name = pirates->collection_of_pirates[j]->name;
-            next_name = pirates->collection_of_pirates[j + 1]->name;
-
-            pirates->collection_of_pirates[j]->name = next_name;
-            pirates->collection_of_pirates[j + 1]->name = current_name;
-        // }
-        // if they are the same or in the correct order
-        // if (strcmp(current_name, next_name) <= 0) {
-        //     // leave them because they are in the right place
-        //     continue;
-        // } else if (strcmp(current_name, next_name) > 0) {
-        //     // swap them because current name needs to come after next name
-        //     pirates->collection_of_pirates[i]->name = next_name;
-        //     pirates->collection_of_pirates[i + 1]->name = current_name;
-
-            // strcpy(pirates->collection_of_pirates[i]->name, next_name);
-            // strcpy(pirates->collection_of_pirates[i + 1]->name, current_name);
         }
+        printf("Sorted List time %d:\n", i);
+        print_list(pirates);
     }
-    printf("Sorted array: \n");
-    for (int i = 0; i < (pirates->length); i++) {
-        printf("%s\n", pirates->collection_of_pirates[i]->name);
-    }
-    printf("\n");
-
-        // if (current_name[0] < next_name[0]) {
-        //     continue;
-        // } else if (current_name[0] > next_name[0]) {
-        //     pirates->collection_of_pirates[i]->name = next_name;
-        //     pirates->collection_of_pirates[i + 1]->name = current_name;
-        // } else if (current_name[0] == next_name[0]) {
-        //     // find shorter length of name to compare alphabetically in loop
-        //     int current_name_length = strlen(current_name);
-        //     int next_name_length = strlen(next_name);
-        //     int shorter_name_length = 0;
-        //     if (current_name_length < next_name_length) {
-        //         shorter_name_length = current_name_length;
-        //     } else {
-        //         shorter_name_length = next_name_length;
-        //     }
-        //     for (int j = 1; j < shorter_name_length; j++) {
-        //         if (current_name[j] > next_name[j]) {
-        //             pirates->collection_of_pirates[i]->name = next_name;
-        //             pirates->collection_of_pirates[i + 1]->name = current_name;
-        //             break;
-        //         }
-        //     }
-        // }
+    printf("Sorted List:\n");
+    print_list(pirates);
 }
 
 size_t list_length(pirate_list* pirates) {
