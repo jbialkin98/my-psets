@@ -63,7 +63,7 @@ pirate *list_insert(pirate_list *pirates, pirate *p, size_t idx) {
     if (list_index_of(pirates, p) == pirates->length) {
         list_expand_if_necessary(pirates);
         // move every pirate from the idx on one to the right
-        // for (int j = pirates->length - 1; j > idx; --j) {
+        // for (int j = pirates->length - 1; j >= idx; --j) {
         //     printf("j = %i\n", j);
         //     pirates->collection_of_pirates[j + 1] = pirates->collection_of_pirates[j];
         // }
@@ -105,7 +105,7 @@ pirate* list_access(pirate_list* pirates, size_t idx) {
 
 void print_list(pirate_list* pirates) {
     for (int i = 0; i < pirates->length; i++) {
-        printf("%s", pirates->collection_of_pirates[i]->name);
+        printf("%s\n", pirates->collection_of_pirates[i]->name);
     }
     printf("\n\n");
 }

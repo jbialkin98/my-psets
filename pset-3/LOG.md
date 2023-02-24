@@ -8,3 +8,6 @@
 2/22, 10pm, 1 hour 30 minutes, try to fix big in OH where pirate was being overwritten instead of being added to list. Switched to strcopy rather than using = and malloc space for name of pirate in addition to just the pirate itself
 
 2/23, 11am, 1 hour, work out some bugs and formatting, start to work on sorting algorithm again now that the list is working properly
+2/23, 6:30pm, 2 hours, fixed sorting algorithm and recognized spacing bugs
+
+2/24, 10:30am, 20 minutes, fixed spacing bugs and fixed duplicates inserted in list
