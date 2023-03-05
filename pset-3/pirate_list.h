@@ -1,3 +1,11 @@
+/*
+ * pirate_list.h
+ * Josh Bialkin
+ * CPSC 223, pset 3
+ * 3/5/23
+ * Initializes the functions for the program
+*/
+
 #ifndef __PIRATE_LIST_H__
 #define __PIRATE_LIST_H__
 
@@ -8,7 +16,7 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-pirate* create_pirate(char name[65]);
+pirate *create_pirate(char name[65]);
 
 void print_list(pirate_list* pirates);
 

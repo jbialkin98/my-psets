@@ -1,3 +1,11 @@
+/*
+ * hookbook.c
+ * Josh Bialkin
+ * CPSC 223, pset 3
+ * 3/5/23
+ * Driver file of the program
+ */
+
 #include "pirate.h"
 #include "pirate_list.h"
 #include <stdlib.h>
@@ -6,6 +14,7 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
+    // if there are fewer than two input arguments
     if (argc < 2) {
         return 1;
     }
@@ -18,29 +27,24 @@ int main(int argc, char **argv) {
     pirate_list *lst = list_create();
     char s[65];
     size_t idx = 0;
-    
+    // until there are no more lines in the file, read the file to 
+    // create new pirates with the correct name
     while (fgets(s, sizeof(s), infile) != NULL) {
-        // pirate* new_pirate = malloc(sizeof(pirate));
-        // new_pirate->name = malloc(65*sizeof(char));
-        // strcpy(new_pirate->name, s);
-
         char *new_line_found = strchr(s, '\n');
+        // if the pirate has a new line character at the end,
+        // replace it with '0' to terminate the string
         if (new_line_found) {
             *new_line_found = '\0';
         }
         pirate *new_pirate = create_pirate(s);
-        printf("Name to insert: ");
-        printf("%s\n", new_pirate->name);
         pirate *p = list_insert(lst, new_pirate, idx);
         if (p == NULL) {
             idx++;
         }
     }
 
-    printf("\n\n");
-    printf("Initial List:\n");
-    print_list(lst);
     list_sort(lst);
+    print_list(lst);
     list_destroy(lst);
     return 0;
 }
