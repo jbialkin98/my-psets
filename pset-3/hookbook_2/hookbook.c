@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 int main(int argc, char **argv) {
     // if there are fewer than two input arguments
@@ -29,8 +30,13 @@ int main(int argc, char **argv) {
     // 1 for '\0' or '\n' to get max length of 130
     char s[130];
     size_t idx = 0;
-    const char separater[2] = ":";
+    const char separator[2] = ":";
     char *separated_strings;
+
+    pirate *new_pirate;
+    pirate *p;
+    char *selected_field;
+    char *field_details;
     // until there are no more lines in the file, read the file to 
     // create new pirates with the correct name
     while (fgets(s, sizeof(s), infile) != NULL) {
@@ -41,21 +47,44 @@ int main(int argc, char **argv) {
         if (new_line_found) {
             *new_line_found = '\0';
         }
-        separated_strings = strtok(s, separater);
+        int time = 1;
+        separated_strings = strtok(s, separator);
         while (separated_strings != NULL) {
             printf("%s\n", separated_strings);
-            separated_strings = strtok(NULL, separater);
+            if (time % 2 != 0) {
+                printf("First time\n");
+                selected_field = separated_strings;
+                if (strcmp(selected_field, "name") == 0) {
+                    // if we get to the next pirate, add the previous pirate
+                    // to the list and create a new one
+                    p = list_insert(lst, new_pirate, idx);
+                    if (p == NULL) {
+                        idx++;
+                    }
+                    new_pirate = create_pirate();
+                }
+            } else {
+                printf("Second time\n");
+                field_details = separated_strings;
+                p = add_to_pirate(new_pirate, selected_field, field_details);
+                selected_field = NULL;
+                field_details = NULL;
+            }
+            separated_strings = strtok(NULL, separator);
+            time++;
         }
-
-        // pirate *new_pirate = create_pirate(s);
+        time = 1;
+        
+        // pirate *new_pirate = create_pirate();
         // pirate *p = list_insert(lst, new_pirate, idx);
         // if (p == NULL) {
         //     idx++;
         // }
     }
+    p = list_insert(lst, new_pirate, idx);
 
     // list_sort(lst);
-    // print_list(lst);
+    print_list(lst);
     // list_destroy(lst);
     return 0;
 }

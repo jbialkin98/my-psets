@@ -22,6 +22,7 @@ jsb245
 | 3/5  |       3:00pm |       1:00 | improve comments and adjust part 1 to style guidelines |
 
 | 3/5  |       5:30pm |       0:40 | go over part 2 README and start implementing strtok to separate string at ":" |
+| 3/5  |      10:50pm |       1:00 | create fields in pirate struct and allow program to read them in and add them to the pirate in the list |
 
 Total time (part 2): 0:40
 

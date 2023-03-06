@@ -29,11 +29,34 @@ typedef struct implementation {
  * Purpose: allocates space in memory for the pirate and its name,
  *          then assigns the name to the pirate
  */
-pirate *create_pirate(char name[65]){
+pirate *create_pirate() {
     pirate *new_pirate = malloc(sizeof(pirate));
-    new_pirate->name = malloc(65*sizeof(char));
-    strcpy(new_pirate->name, name);
+    // new_pirate->name = malloc(65*sizeof(char));
+    // strcpy(new_pirate->name, name);
     return new_pirate;
+}
+
+pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
+    if (strcmp(pirate_field, "name") == 0) {
+        p->name = malloc(65*sizeof(char));
+        strcpy(p->name, field_details);
+    } else if (strcmp(pirate_field, "title") == 0) {
+        p->title = malloc(65*sizeof(char));
+        strcpy(p->title, field_details);
+    } else if (strcmp(pirate_field, "vessel") == 0) {
+        p->vessel = malloc(65*sizeof(char));
+        strcpy(p->vessel, field_details);
+    } else if (strcmp(pirate_field, "port") == 0) {
+        p->port = malloc(65*sizeof(char));
+        strcpy(p->port, field_details);
+    } else if (strcmp(pirate_field, "treasure") == 0) {
+        size_t treasure = atoi(field_details);
+        p->treasure = treasure;
+    } else if (strcmp(pirate_field, "skill") == 0) {
+        p->skill = malloc(65*sizeof(char));
+        strcpy(p->skill, field_details);
+    }
+    return p;
 }
 
 /*
@@ -187,6 +210,8 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
 void print_list(pirate_list *pirates) {
     for (int i = 0; i < pirates->length; i++) {
         printf("%s\n", pirates->collection_of_pirates[i]->name);
+        printf("%s\n", pirates->collection_of_pirates[i]->skill);
+        printf("%s\n", pirates->collection_of_pirates[i]->title);
     }
 }
 
