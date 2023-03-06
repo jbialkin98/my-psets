@@ -209,9 +209,35 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
  */
 void print_list(pirate_list *pirates) {
     for (int i = 0; i < pirates->length; i++) {
-        printf("%s\n", pirates->collection_of_pirates[i]->name);
-        printf("%s\n", pirates->collection_of_pirates[i]->skill);
-        printf("%s\n", pirates->collection_of_pirates[i]->title);
+        char *pirate_name = pirates->collection_of_pirates[i]->name;
+        char *pirate_title = pirates->collection_of_pirates[i]->title;
+        if (pirate_title == NULL) {
+            pirate_title = "(None)";
+        }
+        char *pirate_vessel = pirates->collection_of_pirates[i]->vessel;
+        if (pirate_vessel == NULL) {
+            pirate_vessel = "(None)";
+        }
+        char *pirate_port = pirates->collection_of_pirates[i]->port;
+        if (pirate_port == NULL) {
+            pirate_port = "(None)";
+        }
+        // size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
+        // if (pirate_treasure == NULL) {
+        //     pirate_treasure = "(None)";
+        // }
+        char *pirate_skill = pirates->collection_of_pirates[i]->skill;
+        if (pirate_skill == NULL) {
+            pirate_skill = "(None)";
+        }
+
+        printf("Pirate: %s\n", pirate_name);
+        printf("    Title: %s\n", pirate_title);
+        printf("    Vessel: %s\n", pirate_vessel);
+        printf("    Favorite Port of Call: %s\n", pirate_port);
+        // printf("    Treasures: %zu\n", pirate_treasure);
+        printf("    Skills: %s\n", pirate_skill);
+        
     }
 }
 

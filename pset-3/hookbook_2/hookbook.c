@@ -30,13 +30,14 @@ int main(int argc, char **argv) {
     // 1 for '\0' or '\n' to get max length of 130
     char s[130];
     size_t idx = 0;
-    const char separator[2] = ":";
+    const char separator[1] = ":";
     char *separated_strings;
 
     pirate *new_pirate;
     pirate *p;
     char *selected_field;
     char *field_details;
+    int number_of_times_looped = 0;
     // until there are no more lines in the file, read the file to 
     // create new pirates with the correct name
     while (fgets(s, sizeof(s), infile) != NULL) {
@@ -50,21 +51,25 @@ int main(int argc, char **argv) {
         int time = 1;
         separated_strings = strtok(s, separator);
         while (separated_strings != NULL) {
-            printf("%s\n", separated_strings);
+            // printf("%s\n", separated_strings);
             if (time % 2 != 0) {
-                printf("First time\n");
+                // printf("First time\n");
                 selected_field = separated_strings;
                 if (strcmp(selected_field, "name") == 0) {
                     // if we get to the next pirate, add the previous pirate
                     // to the list and create a new one
-                    p = list_insert(lst, new_pirate, idx);
-                    if (p == NULL) {
-                        idx++;
+
+                    // doesn't insert the first instance of name
+                    if (number_of_times_looped > 0) {
+                        p = list_insert(lst, new_pirate, idx);
+                        if (p == NULL) {
+                            idx++;
+                        }
                     }
                     new_pirate = create_pirate();
                 }
             } else {
-                printf("Second time\n");
+                // printf("Second time\n");
                 field_details = separated_strings;
                 p = add_to_pirate(new_pirate, selected_field, field_details);
                 selected_field = NULL;
@@ -72,6 +77,7 @@ int main(int argc, char **argv) {
             }
             separated_strings = strtok(NULL, separator);
             time++;
+            number_of_times_looped++;
         }
         time = 1;
         
