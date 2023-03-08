@@ -11,6 +11,11 @@
 
 #include <stdlib.h>
 
+typedef struct skill {
+    char *skill_name;
+    size_t number_of_occurances;
+} skill;
+
 // Type of a pirate.
 typedef struct pirate {
     char *name;
@@ -18,8 +23,9 @@ typedef struct pirate {
     char *vessel;
     char *port;
     size_t treasure;
-    // should be char **
-    char *skill;
+    skill **skills;
+    size_t skills_length;
+    size_t skills_capacity;
 } pirate;
 
 #endif

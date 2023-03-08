@@ -20,6 +20,10 @@ pirate *create_pirate();
 
 pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details);
 
+pirate *add_to_skills(pirate *p, char* pirate_skill);
+
+void print_skills(pirate *p);
+
 void print_list(pirate_list *pirates);
 
 /*

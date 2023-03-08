@@ -1,7 +1,19 @@
-name:Josh
+name:Josh Dude
 title:nothing
 skill:procrastination
+skill:laziness
+skill:laziness
+skill:hello
+skill:idont
+skill:ohhe
+skill:octopus
+skill:unambiguous
+skill:tetrichord
+skill:pieces
+skill:scary
+skill:super
+treasure:3
 
 name:Bob
 title:everything
-skill:promptness
+port:promptness

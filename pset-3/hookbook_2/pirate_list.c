@@ -15,6 +15,8 @@
 #define INITIAL_CAPACITY 25
 #define RESIZE_FACTOR 2
 
+#define SKILL_INITIAL_CAPACITY 10
+
 // define a pirate list consisting of a collection of pirates, the length of 
 // the list, and the capacity of the list
 typedef struct implementation {
@@ -31,9 +33,70 @@ typedef struct implementation {
  */
 pirate *create_pirate() {
     pirate *new_pirate = malloc(sizeof(pirate));
-    // new_pirate->name = malloc(65*sizeof(char));
-    // strcpy(new_pirate->name, name);
+    new_pirate->treasure = 0;
+    // this only allows for 10 skills right now
+    new_pirate->skills = malloc(SKILL_INITIAL_CAPACITY * sizeof(skill));
+    new_pirate->skills_length = 0;
+    new_pirate->skills_capacity = SKILL_INITIAL_CAPACITY;
     return new_pirate;
+}
+
+pirate *sort_skills(pirate *p) {
+    for (int i = 1; i < p->skills_length; i++) {
+        int j = i;
+        char *previous_skill = p->skills[j - 1]->skill_name;
+        char *current_skill = p->skills[j]->skill_name;
+        // while they are in the wrong order, swap them
+        while((j >= 1) && (strcmp(previous_skill, current_skill)) > 0) {
+            char *temp_skill = previous_skill;
+
+            p->skills[j - 1]->skill_name = current_skill;
+            p->skills[j]->skill_name = temp_skill;
+
+            if (j > 1) {
+                --j;    
+            }
+
+            previous_skill = p->skills[j - 1]->skill_name;
+            current_skill = p->skills[j]->skill_name;
+        }
+    }
+    return p;
+}
+
+void skill_expand_if_necessary(pirate *p) {
+    if (p->skills_length >= p->skills_capacity) {
+        p->skills_capacity *= RESIZE_FACTOR;
+        p->skills = realloc(p->skills, 
+            p->skills_capacity * sizeof(pirate*));
+        fprintf(stderr, "Expand to %zu\n", p->skills_capacity);
+    }
+}
+
+pirate *add_to_skills(pirate *p, char* pirate_skill) {
+    size_t idx = p->skills_length;
+    
+    if (idx > 0) {
+        for (int i = 0; i < idx; i++) {
+            if (strcmp(p->skills[i]->skill_name, pirate_skill) == 0) {
+                p->skills[i]->number_of_occurances++;
+                return p;
+            }
+        }
+    }
+    p->skills[idx] = malloc(sizeof(skill));
+    p->skills[idx]->skill_name = malloc(65 * sizeof(char));
+    strcpy(p->skills[idx]->skill_name, pirate_skill);
+    p->skills[idx]->number_of_occurances++;
+    p->skills_length++;
+    skill_expand_if_necessary(p);
+    if (p->skills_length > 1) {
+        sort_skills(p);
+    }
+    return p;
+    // for (int i = 0; i < p->skills_length; i++) {
+
+    // }
 }
 
 pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
@@ -53,11 +116,12 @@ pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
         size_t treasure = atoi(field_details);
         p->treasure = treasure;
     } else if (strcmp(pirate_field, "skill") == 0) {
-        p->skill = malloc(65*sizeof(char));
-        strcpy(p->skill, field_details);
+        add_to_skills(p, field_details);
     }
     return p;
 }
+
+
 
 /*
  * Parameters: pirate list
@@ -207,6 +271,28 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
  * Returns: nothing
  * Purpose: prints every pirate's name followed by a new line character
  */
+
+void print_skills(pirate *p) {
+    if (p->skills_length == 0) {
+        printf("(None)\n");
+    } else {
+        for (size_t i = 0; i < p->skills_length; i++) {
+            if (i == 0) {
+                printf("%s ", p->skills[i]->skill_name);
+            } else {
+                printf("            %s ", p->skills[i]->skill_name);
+                
+            }
+            for (size_t j = 0; j < p->skills[i]->number_of_occurances; j++) {
+                printf("*");
+                if (j == (p->skills[i]->number_of_occurances - 1)) {
+                    printf("\n");
+                }
+            }
+        }
+    }
+}
+
 void print_list(pirate_list *pirates) {
     for (int i = 0; i < pirates->length; i++) {
         char *pirate_name = pirates->collection_of_pirates[i]->name;
@@ -222,22 +308,20 @@ void print_list(pirate_list *pirates) {
         if (pirate_port == NULL) {
             pirate_port = "(None)";
         }
-        // size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
-        // if (pirate_treasure == NULL) {
-        //     pirate_treasure = "(None)";
+        size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
+        // char **pirate_skills = pirates->collection_of_pirates[i]->skill;
+
+        // if (pirate_skill == NULL) {
+        //     pirate_skill = "(None)";
         // }
-        char *pirate_skill = pirates->collection_of_pirates[i]->skill;
-        if (pirate_skill == NULL) {
-            pirate_skill = "(None)";
-        }
 
         printf("Pirate: %s\n", pirate_name);
         printf("    Title: %s\n", pirate_title);
         printf("    Vessel: %s\n", pirate_vessel);
         printf("    Favorite Port of Call: %s\n", pirate_port);
-        // printf("    Treasures: %zu\n", pirate_treasure);
-        printf("    Skills: %s\n", pirate_skill);
-        
+        printf("    Treasures: %zu\n", pirate_treasure);
+        printf("    Skills: ");
+        print_skills(pirates->collection_of_pirates[i]);
     }
 }
 
