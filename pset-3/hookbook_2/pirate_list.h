@@ -57,7 +57,7 @@ pirate *list_access(pirate_list *pirates, size_t idx);
 /*
  * Sort the list of pirates in alphabetical order by name
  */
-void list_sort(pirate_list *pirates);
+void list_sort(pirate_list *pirates, char *arg);
 
 /*
  * Return the number of pirates in the list.

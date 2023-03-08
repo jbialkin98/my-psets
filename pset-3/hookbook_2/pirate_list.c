@@ -335,24 +335,56 @@ void print_list(pirate_list *pirates) {
  *          repeated until that pirate is correctly sorted, and then it moves
  *          on to the next pirate. This function uses insertion sort.
  */
-void list_sort(pirate_list *pirates) {
+void list_sort(pirate_list *pirates, char *arg) {
     for (int i = 1; i < pirates->length; i++) {
         int j = i;
-        char *previous_name = pirates->collection_of_pirates[j - 1]->name;
-        char *current_name = pirates->collection_of_pirates[j]->name;
-        // while they are in the wrong order, swap them
-        while((j >= 1) && (strcmp(previous_name, current_name)) > 0) {
-            char *temp_name = previous_name;
+        pirate *previous_pirate = pirates->collection_of_pirates[j - 1];
+        pirate *current_pirate = pirates->collection_of_pirates[j];
+        if (strcmp(arg, "-n") == 0) {
+            // while they are in the wrong order, swap them
+            while ((j >= 1) && (strcmp(previous_pirate->name, current_pirate->name)) > 0) {
+                pirate *temp_pirate = previous_pirate;
 
-            pirates->collection_of_pirates[j - 1]->name = current_name;
-            pirates->collection_of_pirates[j]->name = temp_name;
+                pirates->collection_of_pirates[j - 1] = current_pirate;
+                pirates->collection_of_pirates[j] = temp_pirate;
 
-            if (j > 1) {
-                --j;    
+                if (j > 1) {
+                    --j;    
+                }
+
+                previous_pirate = pirates->collection_of_pirates[j - 1];
+                current_pirate = pirates->collection_of_pirates[j];
             }
+        } else if (strcmp(arg, "-v") == 0) {
+            // while they are in the wrong order, swap them
+            while ((j >= 1) && (strcmp(previous_pirate->vessel, current_pirate->vessel)) > 0) {
+                pirate *temp_pirate = previous_pirate;
 
-            previous_name = pirates->collection_of_pirates[j - 1]->name;
-            current_name = pirates->collection_of_pirates[j]->name;
+                pirates->collection_of_pirates[j - 1] = current_pirate;
+                pirates->collection_of_pirates[j] = temp_pirate;
+
+                if (j > 1) {
+                    --j;    
+                }
+
+                previous_pirate = pirates->collection_of_pirates[j - 1];
+                current_pirate = pirates->collection_of_pirates[j];
+            }
+        } else if (strcmp(arg, "-t") == 0) {
+            // while they are in the wrong order, swap them
+            while ((j >= 1) && (previous_pirate->treasure < current_pirate->treasure)) {
+                pirate *temp_pirate = previous_pirate;
+
+                pirates->collection_of_pirates[j - 1] = current_pirate;
+                pirates->collection_of_pirates[j] = temp_pirate;
+
+                if (j > 1) {
+                    --j;    
+                }
+
+                previous_pirate = pirates->collection_of_pirates[j - 1];
+                current_pirate = pirates->collection_of_pirates[j];
+            }
         }
     }
 }

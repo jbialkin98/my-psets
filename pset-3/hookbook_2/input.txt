@@ -1,4 +1,5 @@
 name:Josh Dude
+vessel:b
 title:nothing
 skill:procrastination
 skill:laziness
@@ -15,5 +16,6 @@ skill:super
 treasure:3
 
 name:Bob
+vessel:ah
 title:everything
 port:promptness

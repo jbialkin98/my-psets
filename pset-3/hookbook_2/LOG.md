@@ -23,6 +23,9 @@ jsb245
 
 | 3/5  |       5:30pm |       0:40 | go over part 2 README and start implementing strtok to separate string at ":" |
 | 3/5  |      10:50pm |       1:00 | create fields in pirate struct and allow program to read them in and add them to the pirate in the list |
+| 3/6  |      11:00pm |       1:00 | fix segmentation fault with inserting pirate to list, format the terminal printing of the pirates |
+| 3/7  |       2:30pm |       0:30 | start implementing skills for pirates |
+| 3/7  |      11:00pm |       1:10 | finish skill functionality, including printing with asterics and sorting. Implement sorting functionality from input argument |
 
 Total time (part 2): 0:40
 

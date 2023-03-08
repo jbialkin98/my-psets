@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
     }
     p = list_insert(lst, new_pirate, idx);
 
-    // list_sort(lst);
+    list_sort(lst, argv[2]);
     print_list(lst);
     // list_destroy(lst);
     return 0;
