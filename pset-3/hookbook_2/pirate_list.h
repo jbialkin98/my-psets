@@ -16,11 +16,7 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-pirate *create_pirate();
-
-pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details);
-
-pirate *add_to_skills(pirate *p, char* pirate_skill);
+pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
 
 void print_skills(pirate *p);
 

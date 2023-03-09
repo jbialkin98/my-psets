@@ -12,18 +12,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <stdbool.h>
 
 int main(int argc, char **argv) {
     // if there are fewer than two input arguments
     if (argc < 4) {
+        fprintf(stderr, "Invalid arguments\n");
         return 1;
     }
     char *file_name = argv[1];
     // if the file does not exist
     if (access(file_name, F_OK) != 0) {
+        fprintf(stderr, "Invalid filename: %s\n", file_name);
         return 1;
     }
+
     FILE *infile = fopen(file_name, "r");
     pirate_list *lst = list_create();
     // label and value each have a max of 64 characters, add 1 for ':' and 
@@ -50,9 +52,7 @@ int main(int argc, char **argv) {
         int time = 1;
         separated_strings = strtok(s, separator);
         while (separated_strings != NULL) {
-            // printf("%s\n", separated_strings);
             if (time % 2 != 0) {
-                // printf("First time\n");
                 selected_field = separated_strings;
                 if (strcmp(selected_field, "name") == 0) {
                     // if we get to the next pirate, add the previous pirate
@@ -68,7 +68,6 @@ int main(int argc, char **argv) {
                     new_pirate = create_pirate();
                 }
             } else {
-                // printf("Second time\n");
                 field_details = separated_strings;
                 p = add_to_pirate(new_pirate, selected_field, field_details);
                 selected_field = NULL;
@@ -79,20 +78,16 @@ int main(int argc, char **argv) {
             number_of_times_looped++;
         }
         time = 1;
-        
-        // pirate *new_pirate = create_pirate();
-        // pirate *p = list_insert(lst, new_pirate, idx);
-        // if (p == NULL) {
-        //     idx++;
-        // }
     }
+
     p = list_insert(lst, new_pirate, idx);
     fclose(infile);
 
     char *captain_file = argv[2];
     char c[130];
-    // if the file does not exist
+    // if the captain file does not exist
     if (access(captain_file, F_OK) != 0) {
+        fprintf(stderr, "Invalid filename: %s\n", captain_file);
         return 1;
     }
     FILE *captain_pairs = fopen(captain_file, "r");
@@ -105,7 +100,7 @@ int main(int argc, char **argv) {
         char *captain_to_add = NULL;
 
         char *new_line_found = strchr(c, '\n');
-        // if the pirate has a new line character at the end,
+        // if the line has a new line character at the end,
         // replace it with '0' to terminate the string
         if (new_line_found) {
             *new_line_found = '\0';
@@ -113,26 +108,9 @@ int main(int argc, char **argv) {
         int time = 1;
         char *separated_strings = strtok(c, slash_separator);
         while (separated_strings != NULL) {
-            // printf("%s\n", separated_strings);
             if (time % 2 != 0) {
-                // printf("First time\n");
                 pirate_to_add_to = separated_strings;
-
-                // if (strcmp(selected_field, "name") == 0) {
-                //     // if we get to the next pirate, add the previous pirate
-                //     // to the list and create a new one
-
-                //     // doesn't insert the first instance of name
-                //     if (number_of_times_looped > 0) {
-                //         p = list_insert(lst, new_pirate, idx);
-                //         if (p == NULL) {
-                //             idx++;
-                //         }
-                //     }
-                //     new_pirate = create_pirate();
-                // }
             } else {
-                // printf("Second time\n");
                 captain_to_add = separated_strings;
                 size_t length = list_length(lst);
                 for (int i = 0; i < length; i++) {
@@ -153,9 +131,15 @@ int main(int argc, char **argv) {
     }
     fclose(captain_pairs);
 
-    
+    char *sort_arg = argv[3];
+    if ((strcmp(sort_arg, "-n") != 0) &&
+        (strcmp(sort_arg, "-v") != 0) &&
+        (strcmp(sort_arg, "-t") != 0)) {
+            fprintf(stderr, "Invalid argument: %s\n", sort_arg);
+            return 1;
+        }
 
-    list_sort(lst, argv[3]);
+    list_sort(lst, sort_arg);
     print_list(lst);
     list_destroy(lst);
     return 0;

@@ -29,4 +29,10 @@ typedef struct pirate {
     size_t skills_capacity;
 } pirate;
 
+pirate *create_pirate();
+
+pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details);
+
+pirate *add_to_skills(pirate *p, char* pirate_skill);
+
 #endif
