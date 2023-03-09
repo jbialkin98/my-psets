@@ -14,13 +14,13 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
-    // if there are fewer than two input arguments
+    // if there are fewer than four input arguments
     if (argc < 4) {
         fprintf(stderr, "Invalid arguments\n");
         return 1;
     }
     char *file_name = argv[1];
-    // if the file does not exist
+    // if the file containing pirate information does not exist
     if (access(file_name, F_OK) != 0) {
         fprintf(stderr, "Invalid filename: %s\n", file_name);
         return 1;
@@ -54,10 +54,9 @@ int main(int argc, char **argv) {
         while (separated_strings != NULL) {
             if (time % 2 != 0) {
                 selected_field = separated_strings;
+                // if we get to the next pirate, add the previous pirate
+                // to the list and create a new one
                 if (strcmp(selected_field, "name") == 0) {
-                    // if we get to the next pirate, add the previous pirate
-                    // to the list and create a new one
-
                     // doesn't insert the first instance of name
                     if (number_of_times_looped > 0) {
                         p = list_insert(lst, new_pirate, idx);
@@ -79,7 +78,7 @@ int main(int argc, char **argv) {
         }
         time = 1;
     }
-
+    // insert the last pirate of the file
     p = list_insert(lst, new_pirate, idx);
     fclose(infile);
 
@@ -98,7 +97,6 @@ int main(int argc, char **argv) {
     while (fgets(c, sizeof(c), captain_pairs) != NULL) {
         char *pirate_to_add_to = NULL;
         char *captain_to_add = NULL;
-
         char *new_line_found = strchr(c, '\n');
         // if the line has a new line character at the end,
         // replace it with '0' to terminate the string

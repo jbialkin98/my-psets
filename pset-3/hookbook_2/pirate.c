@@ -7,6 +7,12 @@
 #define SKILL_INITIAL_CAPACITY 25
 #define RESIZE_FACTOR 2
 
+/*
+ * Parameters: none
+ * Returns: pointer to pirate
+ * Purpose: allocates space in memory for the pirate, initializes its
+ *          values, and sets up its skill array list
+ */
 pirate *create_pirate() {
     pirate *new_pirate = malloc(sizeof(pirate));
     new_pirate->treasure = 0;

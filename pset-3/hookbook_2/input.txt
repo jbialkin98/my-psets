@@ -1,68 +1,62 @@
-name:Captain Blackheart
+name:Blackbeard
 title:Captain
-vessel:The Black Pearl
-port:Port Royale
-treasure:25
-skill:Navigation
-skill:Hand-to-hand combat
-skill:Cannon firing
-name:Redbeard the Ruthless
-title:First Mate
-vessel:The Bloody Dagger
-port:Tortuga
-treasure:15
+port:Nassau
 skill:Swordfighting
-skill:Leadership
-name:Ironhook
-title:Quartermaster
-vessel:The Iron Maiden
-port:Portsmouth
+vessel:Queen Anne's Revenge
+skill:Navigation
 treasure:10
-skill:Navigational astronomy
-skill:Knot tying
-skill:Cartography
-name:Stormy Seas
-port:Caribbean Cove
-treasure:8
-skill:Pistol shooting
-skill:Disguise
-skill:Swimming
-name:Captain Crimson
-title:Captain
-vessel:The Crimson Tide
-port:Jamaica
-treasure:30
-skill:Ship maintenance
 skill:Intimidation
-name:Sea Dog
+name:Anne Bonny
+vessel:Revenge
+treasure:5
+port:Tortuga
+skill:Pistol shooting
+skill:Hand-to-hand combat
+name:Jack Rackham
 title:First Mate
-vessel:The Sea Rover
-port:Turtle Bay
-treasure:12
-skill:Fishing
+skill:Ship maintenance
+treasure:3
+port:Port Royal
+vessel:Ranger
 skill:Knot tying
-name:Mad Dog McGraw
+name:Calico Jack
+title:Quartermaster
+skill:Cannon firing
+treasure:8
+vessel:William
+port:Havana
+skill:Drinking
+skill:Card playing
+name:Mary Read
+treasure:4
+port:Kingston
+title:Second Mate
+skill:Disguise
+skill:Swordfighting
+vessel:Adventure
+name:Black Bart Roberts
+port:Ouidah
+skill:Leadership
+treasure:15
+skill:Navigation
 title:Captain
-vessel:The Salty Dog
-port:New Providence
+vessel:Royal Fortune
+name:Anne Dieu-le-Veut
+treasure:6
+port:La Tortue
+skill:Astronomy
+title:Navigator
+skill:Cartography
+vessel:Victoire
+name:Stede Bonnet
+treasure:2
+port:Charleston
+skill:Fishing
+skill:Music
+name:Edward Teach
+title:Captain
+vessel:Revenge
+port:Ocracoke
 treasure:20
 skill:Strategy
 skill:Manipulation
-skill:Drinking
-skill:Card playing
-name:Jolly Roger
-title:Quartermaster
-vessel:The Jolly Roger
-port:Barbados
-treasure:18
-skill:Astronomy
-skill:Leadership
-name:Black Bart
-title:Captain
-vessel:The Black Shark
-port:Antigua
-treasure:28
-skill:Navigation
-skill:Swordfighting
-skill:Cannon firing
-skill:Hand-to-hand combat

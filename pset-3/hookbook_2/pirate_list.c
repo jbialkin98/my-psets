@@ -436,6 +436,7 @@ void destroy_pirates(pirate_list *pirates) {
         }
         if (pirates->collection_of_pirates[i]->skills_length != 0) {
             for (int j = 0; j < pirates->collection_of_pirates[i]->skills_length; j++) {
+                free(pirates->collection_of_pirates[i]->skills[j]->skill_name);
                 free(pirates->collection_of_pirates[i]->skills[j]);
             }
             free(pirates->collection_of_pirates[i]->skills);
@@ -443,7 +444,8 @@ void destroy_pirates(pirate_list *pirates) {
         if (pirates->collection_of_pirates[i]->title != NULL) {
             free(pirates->collection_of_pirates[i]->title);
         }
-        if (pirates->collection_of_pirates[i]->vessel != NULL) {
+        if ((pirates->collection_of_pirates[i]->vessel != NULL) &&  
+        strcmp(pirates->collection_of_pirates[i]->vessel, "(None)") != 0) {
             free(pirates->collection_of_pirates[i]->vessel);
         }
         if (pirates->collection_of_pirates[i]->port != NULL) {
