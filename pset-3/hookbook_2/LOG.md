@@ -26,8 +26,9 @@ jsb245
 | 3/6  |      11:00pm |       1:00 | fix segmentation fault with inserting pirate to list, format the terminal printing of the pirates |
 | 3/7  |       2:30pm |       0:30 | start implementing skills for pirates |
 | 3/7  |      11:00pm |       1:10 | finish skill functionality, including printing with asterics and sorting. Implement sorting functionality from input argument |
+| 3/8  |       8:50pm |       2:40 | finish implementing outputs including captains, program is fully functional and matches test cases. Start working on freeing memory. |
 
-Total time (part 2): 0:40
+Total time (part 2): 7:00
 
 # Collaboration
 N/A

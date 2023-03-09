@@ -157,6 +157,6 @@ int main(int argc, char **argv) {
 
     list_sort(lst, argv[3]);
     print_list(lst);
-    // list_destroy(lst);
+    list_destroy(lst);
     return 0;
 }
