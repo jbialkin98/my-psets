@@ -232,6 +232,13 @@ size_t list_length(pirate_list *pirates) {
     return pirates->length;
 }
 
+void destroy_pirates(pirate_list *pirates) {
+    for (size_t i = 0; i < pirates->length; i++) {
+        free(pirates->collection_of_pirates[i]->name);
+        free(pirates->collection_of_pirates[i]);
+    }
+}
+
 /*
  * Parameters: pirate list
  * Returns: nothing

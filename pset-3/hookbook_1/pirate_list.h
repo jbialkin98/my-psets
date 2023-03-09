@@ -65,4 +65,9 @@ size_t list_length(pirate_list *pirates);
  */
 void list_destroy(pirate_list *pirates);
 
+/*
+ * Free all memory associated with each pirate.
+ */
+void destroy_pirates(pirate_list *pirates);
+
 #endif

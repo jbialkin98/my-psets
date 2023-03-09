@@ -45,6 +45,7 @@ int main(int argc, char **argv) {
 
     list_sort(lst);
     print_list(lst);
+    destroy_pirates(lst);
     list_destroy(lst);
     return 0;
 }
