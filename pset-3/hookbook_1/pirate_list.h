@@ -20,6 +20,8 @@ pirate *create_pirate(char name[65]);
 
 void print_list(pirate_list* pirates);
 
+pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
+
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.
  */

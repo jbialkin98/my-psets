@@ -19,6 +19,7 @@ typedef struct skill {
 // Type of a pirate.
 typedef struct pirate {
     char *name;
+    struct pirate *captain;
     char *title;
     char *vessel;
     char *port;

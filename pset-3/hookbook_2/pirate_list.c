@@ -99,6 +99,17 @@ pirate *add_to_skills(pirate *p, char* pirate_skill) {
     // }
 }
 
+pirate *add_captain(pirate_list *pirates, pirate *p, char *captain) {
+    for (int i = 0; i < pirates->length; i++) {
+        if (strcmp(pirates->collection_of_pirates[i]->name, captain) == 0) {
+            p->captain = pirates->collection_of_pirates[i];
+            // p->captain->title = "Captain";
+            // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
+        }
+    }
+    return p;
+}
+
 pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
     if (strcmp(pirate_field, "name") == 0) {
         p->name = malloc(65*sizeof(char));
@@ -300,6 +311,23 @@ void print_list(pirate_list *pirates) {
         if (pirate_title == NULL) {
             pirate_title = "(None)";
         }
+        char *pirate_captain_name = NULL;
+        char *pirate_captain_title = NULL;
+        char *pirate_captain_port = NULL;
+        if (pirates->collection_of_pirates[i]->captain != NULL) {
+            pirate_captain_name = pirates->collection_of_pirates[i]->captain->name;
+            pirate_captain_title = pirates->collection_of_pirates[i]->captain->title;
+            if (pirate_captain_title == NULL) {
+                pirate_captain_title = "(None)";
+            }
+            pirate_captain_port = pirates->collection_of_pirates[i]->captain->port;
+            if (pirate_captain_port == NULL) {
+                pirate_captain_port = "(None)";
+            }
+        }
+        if (pirate_captain_name == NULL) {
+            pirate_captain_name = "(None)";
+        }
         char *pirate_vessel = pirates->collection_of_pirates[i]->vessel;
         if (pirate_vessel == NULL) {
             pirate_vessel = "(None)";
@@ -309,19 +337,19 @@ void print_list(pirate_list *pirates) {
             pirate_port = "(None)";
         }
         size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
-        // char **pirate_skills = pirates->collection_of_pirates[i]->skill;
-
-        // if (pirate_skill == NULL) {
-        //     pirate_skill = "(None)";
-        // }
-
         printf("Pirate: %s\n", pirate_name);
         printf("    Title: %s\n", pirate_title);
+        printf("    Captain: %s\n", pirate_captain_name);
+        if (strcmp(pirate_captain_name,"(None)") != 0) {
+            printf("        Captain's Title: %s\n", pirate_captain_title);
+            printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
+        }
         printf("    Vessel: %s\n", pirate_vessel);
         printf("    Favorite Port of Call: %s\n", pirate_port);
         printf("    Treasures: %zu\n", pirate_treasure);
         printf("    Skills: ");
         print_skills(pirates->collection_of_pirates[i]);
+        printf("\n");
     }
 }
 
@@ -339,7 +367,13 @@ void list_sort(pirate_list *pirates, char *arg) {
     for (int i = 1; i < pirates->length; i++) {
         int j = i;
         pirate *previous_pirate = pirates->collection_of_pirates[j - 1];
+        if (previous_pirate->vessel == NULL) {
+            previous_pirate->vessel = "(None)";
+        }
         pirate *current_pirate = pirates->collection_of_pirates[j];
+        if (current_pirate->vessel == NULL) {
+            current_pirate->vessel = "(None)";
+        }
         if (strcmp(arg, "-n") == 0) {
             // while they are in the wrong order, swap them
             while ((j >= 1) && (strcmp(previous_pirate->name, current_pirate->name)) > 0) {
