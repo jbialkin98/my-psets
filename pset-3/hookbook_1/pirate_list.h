@@ -16,8 +16,6 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-// pirate *create_pirate(char name[65]);
-
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.
  */
