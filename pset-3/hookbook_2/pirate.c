@@ -1,3 +1,11 @@
+/*
+ * pirate.c
+ * Josh Bialkin
+ * CPSC 223, pset 3
+ * 3/9/23
+ * Contains functions for creating and altering pirates
+ */
+
 #include "pirate.h"
 #include "pirate_list.h"
 #include <stdlib.h>
@@ -22,6 +30,13 @@ pirate *create_pirate() {
     return new_pirate;
 }
 
+/*
+ * Parameters: pirate
+ * Returns: pointer to pirate
+ * Purpose: sorts the skills alphabetically. ensures the two skills
+ *          are in the correct order before moving on to the next. Uses
+ *          insertion sort. 
+ */
 pirate *sort_skills(pirate *p) {
     for (int i = 1; i < p->skills_length; i++) {
         int j = i;
@@ -45,6 +60,12 @@ pirate *sort_skills(pirate *p) {
     return p;
 }
 
+/*
+ * Parameters: pirate
+ * Returns: nothing
+ * Purpose: increases the amount of memory allocated for a pirate's skill
+ *          list if it becomes too large.
+ */
 void skill_expand_if_necessary(pirate *p) {
     if (p->skills_length >= p->skills_capacity) {
         p->skills_capacity *= RESIZE_FACTOR;
@@ -54,6 +75,15 @@ void skill_expand_if_necessary(pirate *p) {
     }
 }
 
+/*
+ * Parameters: pirate, string of pirate skill
+ * Returns: pointer to pirate
+ * Purpose: adds the skill from the string to the pirate's skill list. If the
+ *          skill is already in the list, it increases the skill's number of
+ *          occurances. Otherwise, it adds the skill to the list and then 
+ *          ensures the skills are sorted by calling the sort_skills function.
+ *          There is also a check see if the list needs to be expanded.
+ */
 pirate *add_to_skills(pirate *p, char* pirate_skill) {
     size_t idx = p->skills_length;
     
@@ -77,6 +107,13 @@ pirate *add_to_skills(pirate *p, char* pirate_skill) {
     return p;
 }
 
+/*
+ * Parameters: pirate, string of pirate field, string of field details
+ * Returns: pointer to pirate
+ * Purpose: determines which field the new trait needs to be added to,
+ *          allocates memory as needed, and then adds the field details
+ *          to the correct field
+ */
 pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
     if (strcmp(pirate_field, "name") == 0) {
         p->name = malloc(65*sizeof(char));

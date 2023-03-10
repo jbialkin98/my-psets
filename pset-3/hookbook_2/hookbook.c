@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
     char *field_details;
     int number_of_times_looped = 0;
     // until there are no more lines in the file, read the file to 
-    // create new pirates with the correct name
+    // get the listed information
     while (fgets(s, sizeof(s), infile) != NULL) {
         char *new_line_found = strchr(s, '\n');
         // if the pirate has a new line character at the end,
@@ -54,8 +54,10 @@ int main(int argc, char **argv) {
             *new_line_found = '\0';
         }
         int time = 1;
+        // get the string before and after the ":"
         separated_strings = strtok(s, separator);
         while (separated_strings != NULL) {
+            // first time (before the ":")
             if (time % 2 != 0) {
                 selected_field = separated_strings;
                 // if we get to the next pirate, add the previous pirate
@@ -71,6 +73,7 @@ int main(int argc, char **argv) {
                     new_pirate = create_pirate();
                 }
             } else {
+                // second time (after the ":")
                 field_details = separated_strings;
                 p = add_to_pirate(new_pirate, selected_field, field_details);
                 selected_field = NULL;
@@ -111,27 +114,33 @@ int main(int argc, char **argv) {
         int time = 1;
         char *separated_strings = strtok(c, slash_separator);
         while (separated_strings != NULL) {
+            // first time (before "/")
             if (time % 2 != 0) {
                 pirate_to_add_to = separated_strings;
             } else {
+                // second time (after "/")
                 captain_to_add = separated_strings;
                 size_t length = list_length(lst);
                 for (int i = 0; i < length; i++) {
+                    // pirate at i
                     pirate *p = list_access(lst, i);
+                    // if the pirate from the string is the pirate at i
                     if (strcmp(pirate_to_add_to, p->name) == 0) {
-                        // add_captain(lst, p, captain_to_add);
                         size_t length = list_length(lst);
                         for (int i = 0; i < length; i++) {
                             pirate *potential_captain = list_access(lst, i);
-                            if (strcmp(potential_captain->name, captain_to_add) == 0) {
-                                p->captain = potential_captain;
-                                // p->captain->title = "Captain";
-                                // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
+                            // if the pirate at i is the pirate that needs to 
+                            // become the pirate p's captain, set the pirate
+                            // as the captain
+                            if (strcmp(potential_captain->name, 
+                                captain_to_add) == 0) {
+                                    p->captain = potential_captain;
                             }
-    }
+                        }
                     }
                 }
-                p = add_to_pirate(new_pirate, pirate_to_add_to, captain_to_add);
+                p = add_to_pirate(new_pirate, pirate_to_add_to, 
+                    captain_to_add);
                 pirate_to_add_to = NULL;
                 captain_to_add = NULL;
             }
@@ -143,6 +152,7 @@ int main(int argc, char **argv) {
     }
     fclose(captain_pairs);
 
+    // ensure the third input argument is valid
     char *sort_arg = argv[3];
     if ((strcmp(sort_arg, "-n") != 0) &&
         (strcmp(sort_arg, "-v") != 0) &&
@@ -152,10 +162,8 @@ int main(int argc, char **argv) {
         }
 
     list_sort(lst, sort_arg);
-    // print_list(lst);
 
     size_t length = list_length(lst);
-
     //print the list of pirates
     for (size_t i = 0; i < length; i++) {
         pirate *p = list_access(lst, i);
@@ -196,7 +204,8 @@ int main(int argc, char **argv) {
         printf("    Captain: %s\n", pirate_captain_name);
         if (strcmp(pirate_captain_name, "(None)") != 0) {
             printf("        Captain's Title: %s\n", pirate_captain_title);
-            printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
+            printf("        Captain's Favorite Port of Call: %s\n", 
+                pirate_captain_port);
         }
         printf("    Vessel: %s\n", pirate_vessel);
         printf("    Treasure: %zu\n", pirate_treasure);
@@ -235,6 +244,14 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+/*
+ * Parameters: pointer to pirate
+ * Returns: nothing
+ * Purpose: goes through a pirate's skills list and prints out each skill
+ *          with its proper spacing. It then prints out the correct number
+ *          of asterics for the number of times the skill appears in the
+ *          input file
+ */
 void print_skills(pirate *p) {
     if (p->skills_length == 0) {
         printf("(None)\n");

@@ -16,12 +16,6 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-// pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
-
-// void print_skills(pirate *p);
-
-// void print_list(pirate_list *pirates);
-
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.
  */
@@ -51,7 +45,7 @@ pirate *list_remove(pirate_list *pirates, pirate *p);
 pirate *list_access(pirate_list *pirates, size_t idx);
 
 /*
- * Sort the list of pirates in alphabetical order by name
+ * Sort the list of pirates in the order defined by a string argument
  */
 void list_sort(pirate_list *pirates, char *arg);
 

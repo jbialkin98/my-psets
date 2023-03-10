@@ -3,7 +3,7 @@
  * Josh Bialkin
  * CPSC 223, pset 3
  * 3/5/23
- * Contains the function implementations for the program
+ * Contains the function implementations for the pirate array list
  */
 
 #include "pirate.h"
@@ -15,8 +15,6 @@
 #define INITIAL_CAPACITY 25
 #define RESIZE_FACTOR 2
 
-#define SKILL_INITIAL_CAPACITY 10
-
 // define a pirate list consisting of a collection of pirates, the length of 
 // the list, and the capacity of the list
 typedef struct implementation {
@@ -24,112 +22,6 @@ typedef struct implementation {
     size_t length;
     size_t capacity;
 } pirate_list;
-
-/*
- * Parameters: name of pirate
- * Returns: pointer to pirate
- * Purpose: allocates space in memory for the pirate and its name,
- *          then assigns the name to the pirate
- */
-// pirate *create_pirate() {
-//     pirate *new_pirate = malloc(sizeof(pirate));
-//     new_pirate->treasure = 0;
-//     // this only allows for 10 skills right now
-//     new_pirate->skills = malloc(SKILL_INITIAL_CAPACITY * sizeof(skill));
-//     new_pirate->skills_length = 0;
-//     new_pirate->skills_capacity = SKILL_INITIAL_CAPACITY;
-//     return new_pirate;
-// }
-
-// pirate *sort_skills(pirate *p) {
-//     for (int i = 1; i < p->skills_length; i++) {
-//         int j = i;
-//         char *previous_skill = p->skills[j - 1]->skill_name;
-//         char *current_skill = p->skills[j]->skill_name;
-//         // while they are in the wrong order, swap them
-//         while((j >= 1) && (strcmp(previous_skill, current_skill)) > 0) {
-//             char *temp_skill = previous_skill;
-
-//             p->skills[j - 1]->skill_name = current_skill;
-//             p->skills[j]->skill_name = temp_skill;
-
-//             if (j > 1) {
-//                 --j;    
-//             }
-
-//             previous_skill = p->skills[j - 1]->skill_name;
-//             current_skill = p->skills[j]->skill_name;
-//         }
-//     }
-//     return p;
-// }
-
-// void skill_expand_if_necessary(pirate *p) {
-//     if (p->skills_length >= p->skills_capacity) {
-//         p->skills_capacity *= RESIZE_FACTOR;
-//         p->skills = realloc(p->skills, 
-//             p->skills_capacity * sizeof(pirate*));
-//         fprintf(stderr, "Expand to %zu\n", p->skills_capacity);
-//     }
-// }
-
-// pirate *add_to_skills(pirate *p, char* pirate_skill) {
-//     size_t idx = p->skills_length;
-    
-//     if (idx > 0) {
-//         for (int i = 0; i < idx; i++) {
-//             if (strcmp(p->skills[i]->skill_name, pirate_skill) == 0) {
-//                 p->skills[i]->number_of_occurances++;
-//                 return p;
-//             }
-//         }
-//     }
-//     p->skills[idx] = malloc(sizeof(skill));
-//     p->skills[idx]->skill_name = malloc(65 * sizeof(char));
-//     strcpy(p->skills[idx]->skill_name, pirate_skill);
-//     p->skills[idx]->number_of_occurances++;
-//     p->skills_length++;
-//     skill_expand_if_necessary(p);
-//     if (p->skills_length > 1) {
-//         sort_skills(p);
-//     }
-//     return p;
-// }
-
-// pirate *add_captain(pirate_list *pirates, pirate *p, char *captain) {
-//     for (int i = 0; i < pirates->length; i++) {
-//         if (strcmp(pirates->collection_of_pirates[i]->name, captain) == 0) {
-//             p->captain = pirates->collection_of_pirates[i];
-//             // p->captain->title = "Captain";
-//             // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
-//         }
-//     }
-//     return p;
-// }
-
-// pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
-//     if (strcmp(pirate_field, "name") == 0) {
-//         p->name = malloc(65*sizeof(char));
-//         strcpy(p->name, field_details);
-//     } else if (strcmp(pirate_field, "title") == 0) {
-//         p->title = malloc(65*sizeof(char));
-//         strcpy(p->title, field_details);
-//     } else if (strcmp(pirate_field, "vessel") == 0) {
-//         p->vessel = malloc(65*sizeof(char));
-//         strcpy(p->vessel, field_details);
-//     } else if (strcmp(pirate_field, "port") == 0) {
-//         p->port = malloc(65*sizeof(char));
-//         strcpy(p->port, field_details);
-//     } else if (strcmp(pirate_field, "treasure") == 0) {
-//         size_t treasure = atoi(field_details);
-//         p->treasure = treasure;
-//     } else if (strcmp(pirate_field, "skill") == 0) {
-//         add_to_skills(p, field_details);
-//     }
-//     return p;
-// }
-
-
 
 /*
  * Parameters: pirate list
@@ -225,7 +117,6 @@ pirate *list_insert(pirate_list *pirates, pirate *p, size_t idx) {
                 pirates->collection_of_pirates[j];
             }  
         }
-
         pirates->collection_of_pirates[idx] = p;
         pirates->length++;
         return NULL;
@@ -274,90 +165,18 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
     }
 }
 
-// void print_skills(pirate *p) {
-//     if (p->skills_length == 0) {
-//         printf("(None)\n");
-//     } else {
-//         for (size_t i = 0; i < p->skills_length; i++) {
-//             if (i == 0) {
-//                 printf("%s ", p->skills[i]->skill_name);
-//             } else {
-//                 printf("            %s ", p->skills[i]->skill_name);
-                
-//             }
-//             for (size_t j = 0; j < p->skills[i]->number_of_occurances; j++) {
-//                 printf("*");
-//                 if (j == (p->skills[i]->number_of_occurances - 1)) {
-//                     printf("\n");
-//                 }
-//             }
-//         }
-//     }
-// }
-
 /*
- * Parameters: pirate list
+ * Parameters: pirate list, argument
  * Returns: nothing
- * Purpose: prints every pirate's name followed by a new line character
- */
-// void print_list(pirate_list *pirates) {
-//     for (int i = 0; i < pirates->length; i++) {
-//         char *pirate_name = pirates->collection_of_pirates[i]->name;
-//         char *pirate_title = pirates->collection_of_pirates[i]->title;
-//         if (pirate_title == NULL) {
-//             pirate_title = "(None)";
-//         }
-//         char *pirate_captain_name = NULL;
-//         char *pirate_captain_title = NULL;
-//         char *pirate_captain_port = NULL;
-//         if (pirates->collection_of_pirates[i]->captain != NULL) {
-//             pirate_captain_name = pirates->collection_of_pirates[i]->captain->name;
-//             pirate_captain_title = pirates->collection_of_pirates[i]->captain->title;
-//             if (pirate_captain_title == NULL) {
-//                 pirate_captain_title = "(None)";
-//             }
-//             pirate_captain_port = pirates->collection_of_pirates[i]->captain->port;
-//             if (pirate_captain_port == NULL) {
-//                 pirate_captain_port = "(None)";
-//             }
-//         }
-//         if (pirate_captain_name == NULL) {
-//             pirate_captain_name = "(None)";
-//         }
-//         char *pirate_vessel = pirates->collection_of_pirates[i]->vessel;
-//         if (pirate_vessel == NULL) {
-//             pirate_vessel = "(None)";
-//         }
-//         char *pirate_port = pirates->collection_of_pirates[i]->port;
-//         if (pirate_port == NULL) {
-//             pirate_port = "(None)";
-//         }
-//         size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
-//         printf("Pirate: %s\n", pirate_name);
-//         printf("    Title: %s\n", pirate_title);
-//         printf("    Captain: %s\n", pirate_captain_name);
-//         if (strcmp(pirate_captain_name,"(None)") != 0) {
-//             printf("        Captain's Title: %s\n", pirate_captain_title);
-//             printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
-//         }
-//         printf("    Vessel: %s\n", pirate_vessel);
-//         printf("    Favorite Port of Call: %s\n", pirate_port);
-//         printf("    Treasures: %zu\n", pirate_treasure);
-//         printf("    Skills: ");
-//         print_skills(pirates->collection_of_pirates[i]);
-//         printf("\n");
-//     }
-// }
-
-/*
- * Parameters: pirate list
- * Returns: nothing
- * Purpose: alphabetically sorts the pirates from left to right. If the 
- *          two pirates are in the wrong order, they are switched. In this
- *          case, the pirate on the left of the two is checked with the pirate
- *          to the left of that one, and they switch if necessary. This is 
- *          repeated until that pirate is correctly sorted, and then it moves
- *          on to the next pirate. This function uses insertion sort.
+ * Purpose: the function takes an input of either -n for sorting my name, -v 
+ *          for sorting by vessel, or -t for sorting by the number of 
+ *          treasures. The input is checked, then it sorts the pirates from 
+ *          left to right accordingly. If the two pirates are in the wrong 
+ *          order, they are switched. In this case, the pirate on the left 
+ *          of the two is checked with the pirate to the left of that one, 
+ *          and they switch if necessary. This is repeated until that pirate 
+ *          is correctly sorted, and then it moves on to the next pirate. 
+ *          This function uses insertion sort.
  */
 void list_sort(pirate_list *pirates, char *arg) {
     for (int i = 1; i < pirates->length; i++) {
@@ -428,32 +247,6 @@ void list_sort(pirate_list *pirates, char *arg) {
 size_t list_length(pirate_list *pirates) {
     return pirates->length;
 }
-
-// void destroy_pirates(pirate_list *pirates) {
-//     for (int i = 0; i < pirates->length; i++) {
-//         if (pirates->collection_of_pirates[i]->name != NULL) {
-//             free(pirates->collection_of_pirates[i]->name);
-//         }
-//         if (pirates->collection_of_pirates[i]->skills_length != 0) {
-//             for (int j = 0; j < pirates->collection_of_pirates[i]->skills_length; j++) {
-//                 free(pirates->collection_of_pirates[i]->skills[j]->skill_name);
-//                 free(pirates->collection_of_pirates[i]->skills[j]);
-//             }
-//             free(pirates->collection_of_pirates[i]->skills);
-//         }
-//         if (pirates->collection_of_pirates[i]->title != NULL) {
-//             free(pirates->collection_of_pirates[i]->title);
-//         }
-//         if ((pirates->collection_of_pirates[i]->vessel != NULL) &&  
-//         strcmp(pirates->collection_of_pirates[i]->vessel, "(None)") != 0) {
-//             free(pirates->collection_of_pirates[i]->vessel);
-//         }
-//         if (pirates->collection_of_pirates[i]->port != NULL) {
-//             free(pirates->collection_of_pirates[i]->port);
-//         }
-//         free(pirates->collection_of_pirates[i]);
-//     }
-// }
 
 /*
  * Parameters: pirate list

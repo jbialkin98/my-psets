@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 
+// type of a skill.
 typedef struct skill {
     char *skill_name;
     size_t number_of_occurances;

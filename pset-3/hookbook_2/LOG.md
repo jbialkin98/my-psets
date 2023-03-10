@@ -27,13 +27,12 @@ jsb245
 | 3/7  |       2:30pm |       0:30 | start implementing skills for pirates |
 | 3/7  |      11:00pm |       1:10 | finish skill functionality, including printing with asterics and sorting. Implement sorting functionality from input argument |
 | 3/8  |       8:50pm |       2:40 | finish implementing outputs including captains, program is fully functional and matches test cases. Start working on freeing memory. |
+| 3/9  |       2:30pm |       3:00 | correctly free all memory. Added a new file called pirates.c that contains functions for the pirates. Removed functions I improperly added to pirate_list.h and pirate_list.c due to the specification, moving them to either hookbook.c or pirate.c. Added more comments and organized code. Went back to part 1 to make some formatting adjustments due to the specification.
 
-Total time (part 2): 7:00
+Total time (part 2): 10:00
 
 # Collaboration
 N/A
 
 # Discussion
-I had a lot of little issues here that took a long time to fix. My sorting algorithm wasn't looping correctly, the insert function was looping indefinitely until it crashed, and other issues like these. These types
-of issues ended up coming down to a very small error, but fixing them was difficult. Working with opaque structs helped me to understand them better, both in how to work with them and why they are useful. I followed
-along in class, but actually working with them deepened my understanding of them, and I now feel that I can actually use them.
+I had a much easier time with part 2 of this pset, even though I took a long time with it. The biggest issue I had was due to my misunderstanding of the specification regarding pirate_list.h. I had previously implemented many functions in the pirate_list.c file, but I could not add functions to pirate_list.h, so I needed to change my code around. While I'm sure there is a much shorter implementation than the one I ended up using, these changes resulted in a much longer main file than I would have liked. 
