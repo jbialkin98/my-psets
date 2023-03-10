@@ -16,11 +16,11 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
+// pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
 
-void print_skills(pirate *p);
+// void print_skills(pirate *p);
 
-void print_list(pirate_list *pirates);
+// void print_list(pirate_list *pirates);
 
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.

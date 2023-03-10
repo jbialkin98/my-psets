@@ -96,16 +96,16 @@ typedef struct implementation {
 //     return p;
 // }
 
-pirate *add_captain(pirate_list *pirates, pirate *p, char *captain) {
-    for (int i = 0; i < pirates->length; i++) {
-        if (strcmp(pirates->collection_of_pirates[i]->name, captain) == 0) {
-            p->captain = pirates->collection_of_pirates[i];
-            // p->captain->title = "Captain";
-            // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
-        }
-    }
-    return p;
-}
+// pirate *add_captain(pirate_list *pirates, pirate *p, char *captain) {
+//     for (int i = 0; i < pirates->length; i++) {
+//         if (strcmp(pirates->collection_of_pirates[i]->name, captain) == 0) {
+//             p->captain = pirates->collection_of_pirates[i];
+//             // p->captain->title = "Captain";
+//             // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
+//         }
+//     }
+//     return p;
+// }
 
 // pirate *add_to_pirate(pirate *p, char *pirate_field, char *field_details) {
 //     if (strcmp(pirate_field, "name") == 0) {
@@ -274,80 +274,80 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
     }
 }
 
-void print_skills(pirate *p) {
-    if (p->skills_length == 0) {
-        printf("(None)\n");
-    } else {
-        for (size_t i = 0; i < p->skills_length; i++) {
-            if (i == 0) {
-                printf("%s ", p->skills[i]->skill_name);
-            } else {
-                printf("            %s ", p->skills[i]->skill_name);
+// void print_skills(pirate *p) {
+//     if (p->skills_length == 0) {
+//         printf("(None)\n");
+//     } else {
+//         for (size_t i = 0; i < p->skills_length; i++) {
+//             if (i == 0) {
+//                 printf("%s ", p->skills[i]->skill_name);
+//             } else {
+//                 printf("            %s ", p->skills[i]->skill_name);
                 
-            }
-            for (size_t j = 0; j < p->skills[i]->number_of_occurances; j++) {
-                printf("*");
-                if (j == (p->skills[i]->number_of_occurances - 1)) {
-                    printf("\n");
-                }
-            }
-        }
-    }
-}
+//             }
+//             for (size_t j = 0; j < p->skills[i]->number_of_occurances; j++) {
+//                 printf("*");
+//                 if (j == (p->skills[i]->number_of_occurances - 1)) {
+//                     printf("\n");
+//                 }
+//             }
+//         }
+//     }
+// }
 
 /*
  * Parameters: pirate list
  * Returns: nothing
  * Purpose: prints every pirate's name followed by a new line character
  */
-void print_list(pirate_list *pirates) {
-    for (int i = 0; i < pirates->length; i++) {
-        char *pirate_name = pirates->collection_of_pirates[i]->name;
-        char *pirate_title = pirates->collection_of_pirates[i]->title;
-        if (pirate_title == NULL) {
-            pirate_title = "(None)";
-        }
-        char *pirate_captain_name = NULL;
-        char *pirate_captain_title = NULL;
-        char *pirate_captain_port = NULL;
-        if (pirates->collection_of_pirates[i]->captain != NULL) {
-            pirate_captain_name = pirates->collection_of_pirates[i]->captain->name;
-            pirate_captain_title = pirates->collection_of_pirates[i]->captain->title;
-            if (pirate_captain_title == NULL) {
-                pirate_captain_title = "(None)";
-            }
-            pirate_captain_port = pirates->collection_of_pirates[i]->captain->port;
-            if (pirate_captain_port == NULL) {
-                pirate_captain_port = "(None)";
-            }
-        }
-        if (pirate_captain_name == NULL) {
-            pirate_captain_name = "(None)";
-        }
-        char *pirate_vessel = pirates->collection_of_pirates[i]->vessel;
-        if (pirate_vessel == NULL) {
-            pirate_vessel = "(None)";
-        }
-        char *pirate_port = pirates->collection_of_pirates[i]->port;
-        if (pirate_port == NULL) {
-            pirate_port = "(None)";
-        }
-        size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
-        printf("Pirate: %s\n", pirate_name);
-        printf("    Title: %s\n", pirate_title);
-        printf("    Captain: %s\n", pirate_captain_name);
-        if (strcmp(pirate_captain_name,"(None)") != 0) {
-            printf("        Captain's Title: %s\n", pirate_captain_title);
-            printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
-        }
-        printf("    Vessel: %s\n", pirate_vessel);
-        printf("    Favorite Port of Call: %s\n", pirate_port);
-        printf("    Treasures: %zu\n", pirate_treasure);
-        printf("    Skills: ");
-        print_skills(pirates->collection_of_pirates[i]);
-        printf("\n");
-    }
-}
+// void print_list(pirate_list *pirates) {
+//     for (int i = 0; i < pirates->length; i++) {
+//         char *pirate_name = pirates->collection_of_pirates[i]->name;
+//         char *pirate_title = pirates->collection_of_pirates[i]->title;
+//         if (pirate_title == NULL) {
+//             pirate_title = "(None)";
+//         }
+//         char *pirate_captain_name = NULL;
+//         char *pirate_captain_title = NULL;
+//         char *pirate_captain_port = NULL;
+//         if (pirates->collection_of_pirates[i]->captain != NULL) {
+//             pirate_captain_name = pirates->collection_of_pirates[i]->captain->name;
+//             pirate_captain_title = pirates->collection_of_pirates[i]->captain->title;
+//             if (pirate_captain_title == NULL) {
+//                 pirate_captain_title = "(None)";
+//             }
+//             pirate_captain_port = pirates->collection_of_pirates[i]->captain->port;
+//             if (pirate_captain_port == NULL) {
+//                 pirate_captain_port = "(None)";
+//             }
+//         }
+//         if (pirate_captain_name == NULL) {
+//             pirate_captain_name = "(None)";
+//         }
+//         char *pirate_vessel = pirates->collection_of_pirates[i]->vessel;
+//         if (pirate_vessel == NULL) {
+//             pirate_vessel = "(None)";
+//         }
+//         char *pirate_port = pirates->collection_of_pirates[i]->port;
+//         if (pirate_port == NULL) {
+//             pirate_port = "(None)";
+//         }
+//         size_t pirate_treasure = pirates->collection_of_pirates[i]->treasure;
+//         printf("Pirate: %s\n", pirate_name);
+//         printf("    Title: %s\n", pirate_title);
+//         printf("    Captain: %s\n", pirate_captain_name);
+//         if (strcmp(pirate_captain_name,"(None)") != 0) {
+//             printf("        Captain's Title: %s\n", pirate_captain_title);
+//             printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
+//         }
+//         printf("    Vessel: %s\n", pirate_vessel);
+//         printf("    Favorite Port of Call: %s\n", pirate_port);
+//         printf("    Treasures: %zu\n", pirate_treasure);
+//         printf("    Skills: ");
+//         print_skills(pirates->collection_of_pirates[i]);
+//         printf("\n");
+//     }
+// }
 
 /*
  * Parameters: pirate list
@@ -429,31 +429,31 @@ size_t list_length(pirate_list *pirates) {
     return pirates->length;
 }
 
-void destroy_pirates(pirate_list *pirates) {
-    for (int i = 0; i < pirates->length; i++) {
-        if (pirates->collection_of_pirates[i]->name != NULL) {
-            free(pirates->collection_of_pirates[i]->name);
-        }
-        if (pirates->collection_of_pirates[i]->skills_length != 0) {
-            for (int j = 0; j < pirates->collection_of_pirates[i]->skills_length; j++) {
-                free(pirates->collection_of_pirates[i]->skills[j]->skill_name);
-                free(pirates->collection_of_pirates[i]->skills[j]);
-            }
-            free(pirates->collection_of_pirates[i]->skills);
-        }
-        if (pirates->collection_of_pirates[i]->title != NULL) {
-            free(pirates->collection_of_pirates[i]->title);
-        }
-        if ((pirates->collection_of_pirates[i]->vessel != NULL) &&  
-        strcmp(pirates->collection_of_pirates[i]->vessel, "(None)") != 0) {
-            free(pirates->collection_of_pirates[i]->vessel);
-        }
-        if (pirates->collection_of_pirates[i]->port != NULL) {
-            free(pirates->collection_of_pirates[i]->port);
-        }
-        free(pirates->collection_of_pirates[i]);
-    }
-}
+// void destroy_pirates(pirate_list *pirates) {
+//     for (int i = 0; i < pirates->length; i++) {
+//         if (pirates->collection_of_pirates[i]->name != NULL) {
+//             free(pirates->collection_of_pirates[i]->name);
+//         }
+//         if (pirates->collection_of_pirates[i]->skills_length != 0) {
+//             for (int j = 0; j < pirates->collection_of_pirates[i]->skills_length; j++) {
+//                 free(pirates->collection_of_pirates[i]->skills[j]->skill_name);
+//                 free(pirates->collection_of_pirates[i]->skills[j]);
+//             }
+//             free(pirates->collection_of_pirates[i]->skills);
+//         }
+//         if (pirates->collection_of_pirates[i]->title != NULL) {
+//             free(pirates->collection_of_pirates[i]->title);
+//         }
+//         if ((pirates->collection_of_pirates[i]->vessel != NULL) &&  
+//         strcmp(pirates->collection_of_pirates[i]->vessel, "(None)") != 0) {
+//             free(pirates->collection_of_pirates[i]->vessel);
+//         }
+//         if (pirates->collection_of_pirates[i]->port != NULL) {
+//             free(pirates->collection_of_pirates[i]->port);
+//         }
+//         free(pirates->collection_of_pirates[i]);
+//     }
+// }
 
 /*
  * Parameters: pirate list
@@ -464,7 +464,7 @@ void destroy_pirates(pirate_list *pirates) {
  */
 void list_destroy(pirate_list *pirates) {
     if (pirates != NULL) {
-        destroy_pirates(pirates);
+        // destroy_pirates(pirates);
         free(pirates->collection_of_pirates);
         free(pirates);
     }

@@ -13,12 +13,16 @@
 #include <string.h>
 #include <unistd.h>
 
+void print_skills(pirate *p);
+
 int main(int argc, char **argv) {
     // if there are fewer than four input arguments
     if (argc < 4) {
         fprintf(stderr, "Invalid arguments\n");
         return 1;
     }
+
+    // steps to read in first file
     char *file_name = argv[1];
     // if the file containing pirate information does not exist
     if (access(file_name, F_OK) != 0) {
@@ -82,6 +86,7 @@ int main(int argc, char **argv) {
     p = list_insert(lst, new_pirate, idx);
     fclose(infile);
 
+    // steps to read in second file
     char *captain_file = argv[2];
     char c[130];
     // if the captain file does not exist
@@ -114,7 +119,16 @@ int main(int argc, char **argv) {
                 for (int i = 0; i < length; i++) {
                     pirate *p = list_access(lst, i);
                     if (strcmp(pirate_to_add_to, p->name) == 0) {
-                        add_captain(lst, p, captain_to_add);
+                        // add_captain(lst, p, captain_to_add);
+                        size_t length = list_length(lst);
+                        for (int i = 0; i < length; i++) {
+                            pirate *potential_captain = list_access(lst, i);
+                            if (strcmp(potential_captain->name, captain_to_add) == 0) {
+                                p->captain = potential_captain;
+                                // p->captain->title = "Captain";
+                                // printf("%s's Captain Name: %s\n", p->name, p->captain->name);
+                            }
+    }
                     }
                 }
                 p = add_to_pirate(new_pirate, pirate_to_add_to, captain_to_add);
@@ -138,7 +152,106 @@ int main(int argc, char **argv) {
         }
 
     list_sort(lst, sort_arg);
-    print_list(lst);
+    // print_list(lst);
+
+    size_t length = list_length(lst);
+
+    //print the list of pirates
+    for (size_t i = 0; i < length; i++) {
+        pirate *p = list_access(lst, i);
+        char *pirate_name = p->name;
+        char *pirate_title = p->title;
+        if (pirate_title == NULL) {
+            pirate_title = "(None)";
+        }
+        char *pirate_captain_name = NULL;
+        char *pirate_captain_title = NULL;
+        char *pirate_captain_port = NULL;
+        if (p->captain != NULL) {
+            pirate_captain_name = p->captain->name;
+            pirate_captain_title = p->captain->title;
+            if (pirate_captain_title == NULL) {
+                pirate_captain_title = "(None)";
+            }
+            pirate_captain_port = p->captain->port;
+            if (pirate_captain_port == NULL) {
+                pirate_captain_port = "(None)";
+            }
+        }
+        if (pirate_captain_name == NULL) {
+            pirate_captain_name = "(None)";
+        }
+        char *pirate_vessel = p->vessel;
+        if (pirate_vessel == NULL) {
+            pirate_vessel = "(None)";
+        }
+        char *pirate_port = p->port;
+        if (pirate_port == NULL) {
+            pirate_port = "(None)";
+        }
+        size_t pirate_treasure = p->treasure;
+
+        printf("Pirate: %s\n", pirate_name);
+        printf("    Title: %s\n", pirate_title);
+        printf("    Captain: %s\n", pirate_captain_name);
+        if (strcmp(pirate_captain_name, "(None)") != 0) {
+            printf("        Captain's Title: %s\n", pirate_captain_title);
+            printf("        Captain's Favorite Port of Call: %s\n", pirate_captain_port);
+        }
+        printf("    Vessel: %s\n", pirate_vessel);
+        printf("    Treasure: %zu\n", pirate_treasure);
+        printf("    Favorite Port of Call: %s\n", pirate_port);
+        printf("    Skills: ");
+        print_skills(p);
+        printf("\n");
+    }
+
+    //free the list of pirates
+    for (size_t i = 0; i < length; i++) {
+        pirate *p = list_access(lst, i);
+        if (p->name) {  
+            free(p->name);
+        }
+        if (p->title != NULL) {
+            free(p->title);
+        }
+        if ((p->vessel != NULL) && strcmp(p->vessel, "(None)") != 0) {
+            free(p->vessel);
+        }
+        if (p->port != NULL) {
+            free(p->port);
+        }
+        if (p->skills_length != 0) {
+            for (int j = 0; j < p->skills_length; j++) {
+                free(p->skills[j]->skill_name);
+                free(p->skills[j]);
+            }
+            free(p->skills);
+        }
+        free(p);
+    }
+
     list_destroy(lst);
     return 0;
+}
+
+void print_skills(pirate *p) {
+    if (p->skills_length == 0) {
+        printf("(None)\n");
+    } else {
+        for (size_t i = 0; i < p->skills_length; i++) {
+            if (i == 0) {
+                printf("%s ", p->skills[i]->skill_name);
+            } else {
+                printf("            %s ", p->skills[i]->skill_name);
+                
+            }
+            for (size_t j = 0; j < p->skills[i]->number_of_occurances; j++) {
+                printf("*");
+                if (j == (p->skills[i]->number_of_occurances - 1)) {
+                    printf("\n");
+                }
+            }
+        }
+    }
 }
