@@ -16,11 +16,7 @@
 // Type of a list of pirates
 typedef struct implementation pirate_list;
 
-pirate *create_pirate(char name[65]);
-
-void print_list(pirate_list* pirates);
-
-pirate *add_captain(pirate_list *pirates, pirate *p, char *captain);
+// pirate *create_pirate(char name[65]);
 
 /*
  * Allocate memory for a new pirate_list and return a pointer to it.
@@ -64,10 +60,5 @@ size_t list_length(pirate_list *pirates);
  * Free all memory associated with the pirate_list, but leave the memory associated with the pirates in the list untouched (it is someone else's job to free the pirates; maybe that dog with the keys in the Pirates of the Caribbean).
  */
 void list_destroy(pirate_list *pirates);
-
-/*
- * Free all memory associated with each pirate.
- */
-void destroy_pirates(pirate_list *pirates);
 
 #endif

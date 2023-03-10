@@ -19,9 +19,10 @@ jsb245
 | 2/23 |       6:30pm |       2:00 | fixed sorting algorithm and recognized spacing bugs |
 | 2/24 |      10:30am |       0:20 | fixed spacing bugs and fixed duplicates inserted in list |
 | 2/24 |      12:15pm |       0:20 | fixed insert function bug so it should now allow for elements placed at any index |
-| 3/5  |       3:00pm |       1:00 | improve comments and adjust part 1 to style guidelines |
+| 3/5  |       3:00pm |       1:00 | improved comments and adjust part 1 to style guidelines |
+| 3/9  |       7:30pm |       0:30 | adjusted implementation so that no functions were added to pirate_list.h |
 
-Total time: 9:45
+Total time: 10:15
 
 # Collaboration
 N/A

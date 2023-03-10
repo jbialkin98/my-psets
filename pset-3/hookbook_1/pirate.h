@@ -14,4 +14,6 @@ typedef struct pirate {
     char *name;
 } pirate;
 
+pirate *create_pirate(char name[65]);
+
 #endif

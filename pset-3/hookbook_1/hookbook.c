@@ -42,10 +42,18 @@ int main(int argc, char **argv) {
             idx++;
         }
     }
+    fclose(infile);
 
     list_sort(lst);
-    print_list(lst);
-    destroy_pirates(lst);
+
+    //print each pirate, then free it
+    size_t length = list_length(lst);
+    for (size_t i = 0; i < length; i++) {
+        pirate *p = list_access(lst, i);
+        printf("%s\n", p->name);
+        free(p->name);
+        free(p);
+    }
     list_destroy(lst);
     return 0;
 }

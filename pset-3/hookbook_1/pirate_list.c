@@ -24,19 +24,6 @@ typedef struct implementation {
 } pirate_list;
 
 /*
- * Parameters: name of pirate
- * Returns: pointer to pirate
- * Purpose: allocates space in memory for the pirate and its name,
- *          then assigns the name to the pirate
- */
-pirate *create_pirate(char name[65]){
-    pirate *new_pirate = malloc(sizeof(pirate));
-    new_pirate->name = malloc(65*sizeof(char));
-    strcpy(new_pirate->name, name);
-    return new_pirate;
-}
-
-/*
  * Parameters: pirate list
  * Returns: nothing
  * Purpose: if the length of the pirate list is greater than or equal to the 
@@ -155,9 +142,11 @@ pirate *list_remove(pirate_list *pirates, pirate *p) {
         return NULL;
     } else {
         // remove p from list
-        pirate *pirate_to_remove = pirates->collection_of_pirates[pirate_index];
+        pirate *pirate_to_remove = pirates->
+            collection_of_pirates[pirate_index];
         for (int i = pirate_index; i < (pirates->length - 1); i++) {
-            pirates->collection_of_pirates[i] = pirates->collection_of_pirates[i + 1];
+            pirates->collection_of_pirates[i] = pirates->
+                collection_of_pirates[i + 1];
         }
         pirates->length--;
         list_contract_if_necessary(pirates);
@@ -176,17 +165,6 @@ pirate *list_access(pirate_list *pirates, size_t idx) {
         return pirates->collection_of_pirates[idx];
     } else {
         return NULL;
-    }
-}
-
-/*
- * Parameters: pirate list
- * Returns: nothing
- * Purpose: prints every pirate's name followed by a new line character
- */
-void print_list(pirate_list *pirates) {
-    for (int i = 0; i < pirates->length; i++) {
-        printf("%s\n", pirates->collection_of_pirates[i]->name);
     }
 }
 
@@ -230,13 +208,6 @@ void list_sort(pirate_list *pirates) {
  */
 size_t list_length(pirate_list *pirates) {
     return pirates->length;
-}
-
-void destroy_pirates(pirate_list *pirates) {
-    for (size_t i = 0; i < pirates->length; i++) {
-        free(pirates->collection_of_pirates[i]->name);
-        free(pirates->collection_of_pirates[i]);
-    }
 }
 
 /*
