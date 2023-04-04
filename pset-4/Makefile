@@ -1,10 +1,8 @@
-#
+#  Josh Bialkin
 #  Makefile
-#  CPSC 223
-#  
-#
+#  CPSC 223, PSET 4
+#  3/30/23
 #  Makefile for the train-conductor.cpp, LinkedList and Station
-#
 
 
 CXX = g++

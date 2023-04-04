@@ -1,6 +1,8 @@
 /*
+ * Josh Bialkin
  * train-conductor.cpp
- * CPSC 223
+ * CPSC 223, PSET 4
+ * 3/30/23
  * Do not change this file
  * Driver file for the pset
  */

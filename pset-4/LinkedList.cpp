@@ -1,9 +1,9 @@
 /*
  * LinkedList.cpp
- * CPSC 223
- * 
+ * Josh Bialkin
+ * CPSC 223, PSET 4
+ * 3/30/23
  * Implementation for Linked List of Green Line Extension Stations
- * Don't forget to remove //TODO when you submit!
  */
 
 #include "LinkedList.h"
@@ -18,9 +18,8 @@ LinkedList::LinkedList(){
 }
 
 // Destructor
-LinkedList::~LinkedList() {
+LinkedList::~LinkedList(){
     makeEmpty();
-    //TODO
 }
 
 // Assignment operator overloading
@@ -74,9 +73,9 @@ bool LinkedList::isCurrPosNull() const{
 void LinkedList::insertStation(Station s){
     NodeType *newNode = new NodeType;
     newNode->info = s;
-    newNode->next = head->next;
-    head->next = newNode;
-    //TODO
+    newNode->next = head;
+    head = newNode;
+    length++;
 }
 
 // Input: station
@@ -88,10 +87,11 @@ void LinkedList::removeStation(Station s){
     if (curr->info.isEqual(s) == true) {
         NodeType *deleteHead = curr;
         head = curr->next;
-        if (currPos = deleteHead) {
+        if (currPos == deleteHead) {
             resetCurrPos();
         }
         delete deleteHead;
+        length--;
         return;
     }
     // traverses through the list until the station is found to be equal
@@ -109,8 +109,7 @@ void LinkedList::removeStation(Station s){
         resetCurrPos();
     }
     delete nodeToDelete;
-
-    //TODO
+    length--;
 }
 
 
@@ -122,25 +121,21 @@ void LinkedList::removeStation(Station s){
 //       the first station is returned. If the list is empty, the default
 //       station is returned.
 Station LinkedList::getNextStation(){
+    if (head == NULL) {
+        return Station();
+    }
+    if (isCurrPosNull() == true) {
+        currPos = head->next;
+        return head->info;
+    } 
     NodeType *tempCurrPos = currPos;
     currPos = currPos->next;
-    if (tempCurrPos != NULL) {
-        if (currPos == NULL) {
-            resetCurrPos();
-        }
-        return tempCurrPos->info;
-    } else {
-        if (head != NULL) {
-            return head->info;
-        }
-    }
-    return Station();
-    //TODO
+    return tempCurrPos->info;
 }
 
-// Input: 
-// Returns: 
-// Does: 
+// Input: none
+// Returns: void
+// Does: sets curPos to NULL
 void LinkedList::resetCurrPos(){
    currPos = NULL;
 }
@@ -155,16 +150,30 @@ void LinkedList::makeEmpty(){
         delete curr;
         curr = tmp;
     }
-    //TODO
+    length = 0;
 }
 
 
 
-// Input: 
-// Returns: 
-// Does: 
+// Input: out file
+// Returns: void
+// Does: prints every station in the linked list with the specified
+//       formatting. The length is decremented on each loop. On the last
+//       iteration of the while loop, there is a new line printed.
 void LinkedList::print(ostream &out){
-    //TODO
+    int newLength = getLength();
+    newLength--;
+    NodeType *currentStation = head;
+    while (currentStation != NULL) {
+        currentStation->info.print(out);
+        if (currentStation->next != NULL) {
+            out << " " << newLength << " == ";
+        } else {
+            out << " " << newLength << endl;
+        }
+        currentStation = currentStation->next;
+        newLength--;
+        }
 }
 
 

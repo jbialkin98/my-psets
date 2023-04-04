@@ -1,9 +1,9 @@
 /* 
+ * Josh Bialkin
  * Station.cpp
- * CPSC 223
+ * CPSC 223, PSET 4
+ * 3/30/23
  * Implementation of the Station class
- * Don't forget to remove //TODO when you submit!
- * 
  */
 
 #include "Station.h"
@@ -18,7 +18,6 @@ Station::Station(){
 Station::Station(string input_name, bool input_access){
     name = input_name;
     access = input_access;
-    //TODO
 }
 
 // Function: isEqual
@@ -31,7 +30,6 @@ bool Station::isEqual(Station s){
         return true;
     }
     return false;
-    //TODO
 }
 
 // Function: print
@@ -47,7 +45,6 @@ void Station::print(ostream &outfile){
         appropriateLetter = "U";
     }
     outfile << name << " " << appropriateLetter;
-    //TODO
 }
 
 

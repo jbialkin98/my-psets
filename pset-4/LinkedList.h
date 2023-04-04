@@ -1,10 +1,9 @@
 /*
+ * Josh Bialkin
  * LinkedList.h
- * CPSC 223
- * 
- *
+ * CPSC 223, PSET 4
+ * 3/30/23
  * Interface for Linked List of Green Line Extension Stations
- *
  */
 
 #include "NodeType.h"

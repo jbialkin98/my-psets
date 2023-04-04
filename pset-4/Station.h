@@ -1,10 +1,9 @@
 /*
+ * Josh Bialkin
  * Station.h
- * CPSC 223
- * 
- *
+ * CPSC 223, PSET 4
+ * 3/30/23
  * Header file for Station class
- * 
  */
 
 #include <fstream>
