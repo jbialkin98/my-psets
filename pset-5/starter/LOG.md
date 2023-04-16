@@ -9,7 +9,9 @@ jsb245
 | Date | Time Started | Time Spent | Work completed |
 | :--: | -----------: | ---------: | :------------- |
 | 4/15 |       9:00pm |       2:00 | implement functions in order until tree height |
-| 4/15 |      11:30am |       0:30 | work on height and node counting functions |
+| 4/16 |      11:30am |       0:30 | work on height and node counting functions |
+| 4/16 |       1:10pm |       0:50 | fix errors with height and counting nodes |
+
 
 Total time: 
 

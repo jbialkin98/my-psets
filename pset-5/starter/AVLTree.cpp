@@ -56,8 +56,8 @@ AVLTree::AVLTree()
 AVLTree::AVLTree(const AVLTree &source)
 {
     // check during office hours
-    
-    root = pre_order_copy(root);
+
+    root = pre_order_copy(source.root);
     // TODO: Students write code here
 }
 
@@ -73,10 +73,9 @@ AVLTree &AVLTree::operator=(const AVLTree &source)
     if (this == &source) {
         return *this;
     }
-
-    Node *tree_copy = pre_order_copy(root);
     post_order_delete(root);
-    root = tree_copy;
+    root = pre_order_copy(source.root);
+    
     // TODO: Students write code here
     // check for self-assignment
 
@@ -284,10 +283,12 @@ int AVLTree::tree_height(Node *node) const
     // check during office hours
 
     // TODO: Students write code here
-
+    if (node == NULL){
+        return -1;
+    }
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return root->height;
+    return node->height;
 }
 
 int AVLTree::node_count(Node *node) const
@@ -308,22 +309,16 @@ int AVLTree::node_count(Node *node) const
 int AVLTree::count_total(Node *node) const
 {
     // check during office hours
-    if (node == nullptr) {
+    if (node == NULL) {
         return 0;
     }
 
-    int left_nodes = node_count(node->left);
-    int right_nodes = node_count(node->right);
-
-    int node_multiplicity = 0;
-    if (node->count > 1) {
-        node_multiplicity = node->count - 1;
-    }
+    int node_multiplicity = node->count * node->data;
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return 1 + left_nodes + right_nodes + node_multiplicity;
+    return (node->count * node->data) + count_total(node->left) + count_total(node->right);
 }
 
 Node *AVLTree::pre_order_copy(Node *node) const
@@ -333,7 +328,7 @@ Node *AVLTree::pre_order_copy(Node *node) const
         return NULL;
     }
     Node *new_node = new Node();
-    new_node->data = node->data;
+    *new_node = *node;
 
     new_node->left = pre_order_copy(node->left);
     new_node->right = pre_order_copy(node->right);
@@ -357,6 +352,7 @@ void AVLTree::post_order_delete(Node *node)
 
 Node *AVLTree::balance(Node *node)
 {
+    int diff_in_height = height_diff(node);
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
@@ -384,11 +380,23 @@ Node *AVLTree::left_rotate(Node *node)
 
 int AVLTree::height_diff(Node *node) const
 {
+    // call tree height, don't return absolute value
+    
+    assert(node != nullptr);
+    int left_node_height = -1;
+    int right_node_height = -1;
+    if (node->left != nullptr) {
+        left_node_height = node->left->height;
+    }
+    if (node->right != nullptr) {
+        right_node_height = node->right->height;
+    }
+    int difference = abs(left_node_height-right_node_height);
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return 0;
+    return difference;
 }
 
 Node *AVLTree::find_parent(Node *node, Node *child) const
