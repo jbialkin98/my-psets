@@ -9,6 +9,8 @@
 #include "AVLTree.h"
 #include "pretty_print.h"
 
+#include <cassert>
+
 using namespace std;
 
 /*
@@ -47,22 +49,32 @@ static Node *new_node(int data)
 
 AVLTree::AVLTree()
 {
+    root = nullptr;
     // TODO: Students write code here
 }
 
 AVLTree::AVLTree(const AVLTree &source)
 {
+    root = pre_order_copy(root);
     // TODO: Students write code here
 }
 
 AVLTree::~AVLTree()
 {
+    post_order_delete(root);
     // TODO: Students write code here
 }
 
 // assignment overload
 AVLTree &AVLTree::operator=(const AVLTree &source)
 {
+    if (this == &source) {
+        return *this;
+    }
+
+    Node *tree_copy = pre_order_copy(root);
+    post_order_delete(root);
+    root = tree_copy;
     // TODO: Students write code here
     // check for self-assignment
 
@@ -125,29 +137,47 @@ void AVLTree::print_tree() const
 
 Node *AVLTree::find_min(Node *node) const
 {
+    assert(node != nullptr);
+    while (node->left != nullptr) {
+        node = node->left;
+    }
+    return node;
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return node;
+    
 }
 
 Node *AVLTree::find_max(Node *node) const
 {
+    assert(node != nullptr);
+    while (node->right != nullptr) {
+        node = node->right;
+    }
+    return node;
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return node;
 }
 
 bool AVLTree::contains(Node *node, int value) const
 {
+    if (node == nullptr) {
+        return false;
+    }
+    if (node->data > value) {
+        contains(node->left, value);
+    } else if (node->data < value) {
+        contains(node->right, value);
+    } else {
+        return true;
+    }
     // TODO: Students write code here
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return false;
 }
 
 Node *AVLTree::insert(Node *node, int value)
@@ -253,7 +283,7 @@ int AVLTree::tree_height(Node *node) const
 
     // This line is in here so that the starter code compiles.
     // Remove or modify it when implementing.
-    return 0;
+    return root->height;
 }
 
 int AVLTree::node_count(Node *node) const
@@ -281,7 +311,10 @@ Node *AVLTree::pre_order_copy(Node *node) const
         return NULL;
     }
     Node *new_node = new Node();
+    new_node->data = node->data;
 
+    new_node->left = pre_order_copy(node->left);
+    new_node->right = pre_order_copy(node->right);
     // TODO: Students write code here
     // (hint: use a pre-order traversal to copy details from the
     // node to a new_node)
@@ -291,6 +324,12 @@ Node *AVLTree::pre_order_copy(Node *node) const
 
 void AVLTree::post_order_delete(Node *node)
 {
+    if (node == NULL) {
+        return;
+    }
+    post_order_delete(node->left);
+    post_order_delete(node->right);
+    delete node;
     // TODO: Students write code here
 }
 
